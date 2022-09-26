@@ -23,3 +23,11 @@
 `pyhton manage.py startapp`
 
 - 장고가 앱폴더와 프레임을 생성해준다.
+
+
+`python manage.py migrations`
+- 모델의 수정사항을 파일로 생성한다.
+
+
+`python manage.py migrate`
+- migrations으로 생성된 파일을 통해 데이터베이스에 수정사항을 저장한다.
