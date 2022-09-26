@@ -4,14 +4,14 @@
 Today I Learned
 
 
-_2 TILs and counting..._
+_3 TILs and counting..._
 
 ---
 
 ### 2 most recent TILs
 
+- [# poetry로 django개발환경 설정하기](django/django_사전지식.md) - Mon Sep 26 19:23:47 2022 +0900
 - [# poetry로 django개발환경 설정하기](django/poetry_setting_venv.md) - Mon Sep 26 19:05:20 2022 +0900
-- [TIL readme 자동 업데이트 설정](github/github_TIL_Readme_Auto업데이트.md) - Mon Sep 26 17:44:17 2022 +0900
 
 ### Categories
 
@@ -19,6 +19,7 @@ _2 TILs and counting..._
 - [github](#github)
 
 ### [django](#django)
+- [# poetry로 django개발환경 설정하기](django/django_사전지식.md)
 - [# poetry로 django개발환경 설정하기](django/poetry_setting_venv.md)
 
 ### [github](#github)
