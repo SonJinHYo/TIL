@@ -1,4 +1,4 @@
-## poetry로 django개발환경 설정하기
+# poetry로 django개발환경 설정하기
 
 ## poetry 설치
 
