@@ -4,19 +4,23 @@
 Today I Learned
 
 
-_5 TILs and counting..._
+_6 TILs and counting..._
 
 ---
 
 ### 2 most recent TILs
 
+- [웹스크래핑 기초지식](WebScrapping/Background_Knowlege.md) - Mon Sep 26 21:34:51 2022 +0900
 - [앱 생성하기](django/make_app.md) - Mon Sep 26 20:03:10 2022 +0900
-- [terminal_code](django/terminal_code.md) - Mon Sep 26 19:38:52 2022 +0900
 
 ### Categories
 
+- [WebScrapping](#WebScrapping)
 - [django](#django)
 - [github](#github)
+
+### [WebScrapping](#WebScrapping)
+- [웹스크래핑 기초지식](WebScrapping/Background_Knowlege.md)
 
 ### [django](#django)
 - [프레임워크와 라이브러리](django/django_framework_library요약.md)
