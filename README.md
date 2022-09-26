@@ -10,7 +10,7 @@ _4 TILs and counting..._
 
 ### 2 most recent TILs
 
-- [##### 까먹지 말고 peotry shell로 가상환경에 들어가자..](django/terminal_code.md) - Mon Sep 26 19:38:52 2022 +0900
+- [terminal_code](django/terminal_code.md) - Mon Sep 26 19:38:52 2022 +0900
 - [프레임워크와 라이브러리](django/django_framework_library요약.md) - Mon Sep 26 19:29:50 2022 +0900
 
 ### Categories
@@ -21,7 +21,7 @@ _4 TILs and counting..._
 ### [django](#django)
 - [프레임워크와 라이브러리](django/django_framework_library요약.md)
 - [poetry로 django개발환경 설정하기](django/poetry_setting_venv.md)
-- [##### 까먹지 말고 peotry shell로 가상환경에 들어가자..](django/terminal_code.md)
+- [terminal_code](django/terminal_code.md)
 
 ### [github](#github)
 - [TIL readme 자동 업데이트 설정](github/github_TIL_Readme_Auto업데이트.md)
