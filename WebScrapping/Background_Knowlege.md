@@ -109,3 +109,72 @@ World Wide Web, www, Web 이라고 부르는 환경 속에서 자기들끼리 �
 - head와 body로 나뉘어진다.
 - head : 문서에 대한 정보 - 언어, 제목, 등 문서의 정보
 - body : 우리에게 보여지는 주 내용. 문서의 내용(글, 영상 등)
+
+
+
+### 웹브라우저
+
+웹브라우저는 html을 DOM으로 받아들이고 읽는다.
+
+
+
+#### DOM (Doucument Object Model)
+
+- 브라우저에 대한 넓고 얕은 지식
+
+- 구조 (단순하진 않음)
+
+  Document
+
+  - html
+
+    - head
+
+      - style
+        - attribute:type
+
+    - body
+
+      - div
+
+        - attribute:type
+
+      - ul
+
+        - h2
+
+        - li
+
+          - attribute:type
+
+          .
+
+          .
+
+        - li
+
+          - attribute:type
+
+      - script
+
+        - attribute:type
+
+      - ul
+
+        - attribute:type
+
+- 이런 각 노드들을 객체로 생각하면 문서를 더욱 편리하게 관리 가능
+
+- 브라우저는 '랜더링'을 통해 DOM을 작성하고, 이런 DOM Tree를 순회해서 특정 원소를 찾거나, 추가, 삭제 할 수 있음
+
+  
+
+- 요약 : 브라우저는 html을 dom으로 바꿈
+
+  - 원하는 요소를 동적으로 바꿔주거나 ,**찾거나** 등 할 수 있기 때문. (Scrapping에 유용)
+
+
+
+
+
+
