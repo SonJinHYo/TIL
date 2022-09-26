@@ -10,7 +10,7 @@ _3 TILs and counting..._
 
 ### 2 most recent TILs
 
-- [# poetry로 django개발환경 설정하기](django/django_사전지식.md) - Mon Sep 26 19:23:47 2022 +0900
+- [# poetry로 django개발환경 설정하기](django/_django_사전지식.md) - Mon Sep 26 19:27:14 2022 +0900
 - [# poetry로 django개발환경 설정하기](django/poetry_setting_venv.md) - Mon Sep 26 19:05:20 2022 +0900
 
 ### Categories
@@ -19,7 +19,7 @@ _3 TILs and counting..._
 - [github](#github)
 
 ### [django](#django)
-- [# poetry로 django개발환경 설정하기](django/django_사전지식.md)
+- [# poetry로 django개발환경 설정하기](django/_django_사전지식.md)
 - [# poetry로 django개발환경 설정하기](django/poetry_setting_venv.md)
 
 ### [github](#github)
