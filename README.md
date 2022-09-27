@@ -4,14 +4,14 @@
 Today I Learned
 
 
-_8 TILs and counting..._
+_9 TILs and counting..._
 
 ---
 
 ### 2 most recent TILs
 
+- [선형회귀](ML_DL/Linear_regression.md) - Tue Sep 27 17:04:22 2022 +0900
 - [신경망](ML_DL/nn.md) - Tue Sep 27 16:16:03 2022 +0900
-- [웹스크래핑 기초](WebScrapping/scrapping_basic.md) - Tue Sep 27 16:09:03 2022 +0900
 
 ### Categories
 
@@ -21,6 +21,7 @@ _8 TILs and counting..._
 - [github](#github)
 
 ### [ML_DL](#ML_DL)
+- [선형회귀](ML_DL/Linear_regression.md)
 - [신경망](ML_DL/nn.md)
 
 ### [WebScrapping](#WebScrapping)
