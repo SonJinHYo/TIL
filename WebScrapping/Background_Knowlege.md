@@ -2,20 +2,15 @@
 
 컴퓨터의 진화 과정
 
-
-
 계산기(computer)
-
-
-
-아담과 이브. 컴퓨터 2개 연결 (NetWork)
-
-
-
-씨족 사회~부족사회~국가. (Local Area Network, LAN)
-
-
-
+.
+.
+컴퓨터 2개 연결 (NetWork)
+.
+.
+씨족사회부터 국가까지. (Local Area Network, LAN)
+.
+.
 지구연합  (Inter Network, InterNet)
 
 .
