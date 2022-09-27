@@ -10,7 +10,7 @@ _6 TILs and counting..._
 
 ### 2 most recent TILs
 
-- [웹스크래핑](WebScrapping/Background_Knowlege.md) - Mon Sep 26 21:34:51 2022 +0900
+- [웹스크래핑 사전지식](WebScrapping/Background_Knowlege.md) - Mon Sep 26 21:34:51 2022 +0900
 - [앱 생성하기](django/make_app.md) - Mon Sep 26 20:03:10 2022 +0900
 
 ### Categories
@@ -20,7 +20,7 @@ _6 TILs and counting..._
 - [github](#github)
 
 ### [WebScrapping](#WebScrapping)
-- [웹스크래핑](WebScrapping/Background_Knowlege.md)
+- [웹스크래핑 사전지식](WebScrapping/Background_Knowlege.md)
 
 ### [django](#django)
 - [프레임워크와 라이브러리](django/django_framework_library요약.md)
