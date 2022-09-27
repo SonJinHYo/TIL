@@ -1,5 +1,3 @@
-다층 퍼셉트론
-
 # 신경망
 
 - 인공 신경망은 생물학적 신경망의 중추신경계인 인간의 뇌가 문제를 처리하는 방식을 모방한 모형
@@ -32,7 +30,7 @@
   - d개의 입력에 대한 x1~xd 에 대한 출력이 o 일 때,
 
 
-  	<img src="C:\Users\wlsgy\AppData\Roaming\Typora\typora-user-images\image-20220927151920067.png" alt="image-20220927151920067" style="zoom: 80%;" />
+  <img src="https://raw.githubusercontent.com/SonJinHYo/image_repo/main/image_server/image-20220927151920067.png" alt="image-20220927151920067" style="zoom: 80%;" />
 
 - - xi : 입력층의 i번째 노드의 입력
 
@@ -58,11 +56,11 @@
 
         1. 각각으로 보면 입력당 결과가 2개씩 나옴. (1이냐 0이냐)
 
-           ![image-20220927154546123](C:\Users\wlsgy\AppData\Roaming\Typora\typora-user-images\image-20220927154546123.png)
+           ![image-20220927154546123](https://raw.githubusercontent.com/SonJinHYo/image_repo/main/image_server/image-20220927154546123.png)
 
         2. 병렬로 연결해서 보면, 새로운 공간으로 mapping이 된다.
 
-           ![image-20220927154605654](C:\Users\wlsgy\AppData\Roaming\Typora\typora-user-images\image-20220927154605654.png)
+           ![image-20220927154605654](https://raw.githubusercontent.com/SonJinHYo/image_repo/main/image_server/image-20220927154605654.png)
 
         3. 즉, 퍼셉트론이 하나의 직선을 얘기하는 것이므로,
 
@@ -72,7 +70,9 @@
 
     - 활성함수를 통해 딱딱한 공간 분할을 부드러운 공간 분할로 바꾸었음
 
-    - ***종류*** ![image-20220927155235545](C:\Users\wlsgy\AppData\Roaming\Typora\typora-user-images\image-20220927155235545.png)
+    - ***종류***
+
+    - ![image-20220927155235545](https://raw.githubusercontent.com/SonJinHYo/image_repo/main/image_server/image-20220927155235545.png)
 
       - 1차 도함수 계산이 빠르다는 특징이 있음
 
