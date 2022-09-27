@@ -10,7 +10,7 @@ _8 TILs and counting..._
 
 ### 2 most recent TILs
 
-- [다층 퍼셉트론](ML_DL/nn.md) - Tue Sep 27 16:16:03 2022 +0900
+- [신경망](ML_DL/nn.md) - Tue Sep 27 16:16:03 2022 +0900
 - [웹스크래핑 기초](WebScrapping/scrapping_basic.md) - Tue Sep 27 16:09:03 2022 +0900
 
 ### Categories
@@ -21,7 +21,7 @@ _8 TILs and counting..._
 - [github](#github)
 
 ### [ML_DL](#ML_DL)
-- [다층 퍼셉트론](ML_DL/nn.md)
+- [신경망](ML_DL/nn.md)
 
 ### [WebScrapping](#WebScrapping)
 - [웹스크래핑 사전지식](WebScrapping/Background_Knowlege.md)
