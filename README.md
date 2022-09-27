@@ -4,18 +4,19 @@
 Today I Learned
 
 
-_9 TILs and counting..._
+_10 TILs and counting..._
 
 ---
 
 ### 2 most recent TILs
 
+- [Numpy_기본지식-여러생성법](Numpy_Pandas/numpy_basic.md) - Tue Sep 27 17:16:07 2022 +0900
 - [선형회귀](ML_DL/Linear_regression.md) - Tue Sep 27 17:04:22 2022 +0900
-- [신경망](ML_DL/nn.md) - Tue Sep 27 16:16:03 2022 +0900
 
 ### Categories
 
 - [ML_DL](#ML_DL)
+- [Numpy_Pandas](#Numpy_Pandas)
 - [WebScrapping](#WebScrapping)
 - [django](#django)
 - [github](#github)
@@ -23,6 +24,9 @@ _9 TILs and counting..._
 ### [ML_DL](#ML_DL)
 - [선형회귀](ML_DL/Linear_regression.md)
 - [신경망](ML_DL/nn.md)
+
+### [Numpy_Pandas](#Numpy_Pandas)
+- [Numpy_기본지식-여러생성법](Numpy_Pandas/numpy_basic.md)
 
 ### [WebScrapping](#WebScrapping)
 - [웹스크래핑 사전지식](WebScrapping/Background_Knowlege.md)
