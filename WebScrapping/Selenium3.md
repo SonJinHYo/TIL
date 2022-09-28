@@ -121,8 +121,8 @@ import time
   # 아이디 input 요소를 찾아 아이디,비밀번호를 입력한다.
   id_input = driver.find_element(By.ID,"id")
   pw_input = driver.find_element(By.ID,"pw")
-  ActionChains(driver).send_keys_to_element(id_input,"wlsgy95").perform()
-  ActionChains(driver).send_keys_to_element(pw_input,"as7736711").perform()
+  ActionChains(driver).send_keys_to_element(id_input,"비밀!").perform()
+  ActionChains(driver).send_keys_to_element(pw_input,"비밀!").perform()
   
   #  로그인 버튼을 찾아 누른다
   button = driver.find_element(By.XPATH,'//*[@id="log.login"]/span')
