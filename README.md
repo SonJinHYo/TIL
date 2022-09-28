@@ -4,14 +4,14 @@
 Today I Learned
 
 
-_10 TILs and counting..._
+_11 TILs and counting..._
 
 ---
 
 ### 2 most recent TILs
 
+- [Selenium 배경,기초(1)](WebScrapping/Selenium1.md) - Wed Sep 28 13:50:34 2022 +0900
 - [Numpy_기본지식-여러생성법](Numpy_Pandas/numpy_basic.md) - Tue Sep 27 17:16:07 2022 +0900
-- [선형회귀](ML_DL/Linear_regression.md) - Tue Sep 27 17:04:22 2022 +0900
 
 ### Categories
 
@@ -30,6 +30,7 @@ _10 TILs and counting..._
 
 ### [WebScrapping](#WebScrapping)
 - [웹스크래핑 사전지식](WebScrapping/Background_Knowlege.md)
+- [Selenium 배경,기초(1)](WebScrapping/Selenium1.md)
 - [웹스크래핑 기초](WebScrapping/scrapping_basic.md)
 
 ### [django](#django)
