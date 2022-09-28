@@ -4,14 +4,14 @@
 Today I Learned
 
 
-_12 TILs and counting..._
+_13 TILs and counting..._
 
 ---
 
 ### 2 most recent TILs
 
+- [Selenium 기초(3) - 마우스, 키보드 조작 / 라이브러리 모음](WebScrapping/Selenium3.md) - Wed Sep 28 18:17:02 2022 +0900
 - [Selenium 기초(2) - Wait*Call](WebScrapping/Selenium2.md) - Wed Sep 28 13:51:02 2022 +0900
-- [Selenium 배경,기초(1)](WebScrapping/Selenium1.md) - Wed Sep 28 13:50:34 2022 +0900
 
 ### Categories
 
@@ -32,6 +32,7 @@ _12 TILs and counting..._
 - [웹스크래핑 사전지식](WebScrapping/Background_Knowlege.md)
 - [Selenium 배경,기초(1)](WebScrapping/Selenium1.md)
 - [Selenium 기초(2) - Wait*Call](WebScrapping/Selenium2.md)
+- [Selenium 기초(3) - 마우스, 키보드 조작 / 라이브러리 모음](WebScrapping/Selenium3.md)
 - [웹스크래핑 기초](WebScrapping/scrapping_basic.md)
 
 ### [django](#django)
