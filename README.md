@@ -4,14 +4,14 @@
 Today I Learned
 
 
-_13 TILs and counting..._
+_14 TILs and counting..._
 
 ---
 
 ### 2 most recent TILs
 
+- [크롬 자동화 방지 우회](WebScrapping/크롬 봇감지 우회.md) - Wed Sep 28 20:39:06 2022 +0900
 - [Selenium 기초(3) - 마우스, 키보드 조작 / 라이브러리 모음](WebScrapping/Selenium3.md) - Wed Sep 28 18:17:02 2022 +0900
-- [Selenium 기초(2) - Wait*Call](WebScrapping/Selenium2.md) - Wed Sep 28 13:51:02 2022 +0900
 
 ### Categories
 
@@ -34,6 +34,7 @@ _13 TILs and counting..._
 - [Selenium 기초(2) - Wait*Call](WebScrapping/Selenium2.md)
 - [Selenium 기초(3) - 마우스, 키보드 조작 / 라이브러리 모음](WebScrapping/Selenium3.md)
 - [웹스크래핑 기초](WebScrapping/scrapping_basic.md)
+- [크롬 자동화 방지 우회](WebScrapping/크롬 봇감지 우회.md)
 
 ### [django](#django)
 - [프레임워크와 라이브러리](django/django_framework_library요약.md)
