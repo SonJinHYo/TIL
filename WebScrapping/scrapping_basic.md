@@ -148,6 +148,30 @@ res = requests.get('https://hashcode.co.kr',user_agent)
 # bs객체를 생성한다.
 soup = BeautifulSoup(res.text,'html.parser')
 
-# 
+# 객체이기 때문에 한번에 연쇄적으로 찾을 수 있다.
+
+# li태그 중 question-list-item 클래스를 가진 태그 중에서 div태그의 question 클래스를 가진 객체의 텍스트
+mini_title = soup.find("li","question-list-item").find("div","question").text
 ```
 
+### Pagination
+
+- 많은 정보를 인덱스로 구분하는 기법
+
+  ```python
+  # Pagination이 되어있는 질문 리스트의 제목을 모두 가져오기
+  # 서버에게 부담을 주지 않기위해 1초마다 요청을 보내는 형식으로
+  
+  import time
+  
+  for i in range(1,6):
+      res = erquests.get("https://hashcode.co.kr/?page{}".format(i),user_agent)
+      soup = BeautifulSoup(res.text,"html.parser")
+      
+      for question in questions:
+          print(soup.find("li","question-list-item").find("div","question").text)
+  		time.sleep(0.5)
+  
+  ```
+
+  
