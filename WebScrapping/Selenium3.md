@@ -2,14 +2,21 @@
 
 ##### 라이브러리 모음
 ```python
+# 셀레니움 다운로드
+%pip install selenium
+# webdriver-manager 설치 
+%pip install webdriver-manager
+
 # 크롬 웹드라이버 구동 라이브러리
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+
 # 마우스,키보드 조작 라이브러리
 from selenium.webdriver import ActionChains,Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.actions.action_builder import ActionBuilder
+
 # 비동기 처리 sleep으로 처리하기 위한 time 라이브러리
 import time
 ```
