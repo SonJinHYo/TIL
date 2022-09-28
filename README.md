@@ -26,7 +26,7 @@ _12 TILs and counting..._
 - [신경망](ML_DL/nn.md)
 
 ### [Numpy_Pandas](#Numpy_Pandas)
-- [Numpy_기본지식-여러생성법](Numpy_Pandas/numpy_basic.md)
+- [Numpy_기본지식-여러가지 Array생성법](Numpy_Pandas/numpy_basic.md)
 
 ### [WebScrapping](#WebScrapping)
 - [웹스크래핑 사전지식](WebScrapping/Background_Knowlege.md)
