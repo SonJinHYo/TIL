@@ -1,4 +1,4 @@
-# Numpy_기본지식-여러생성법
+# Numpy_기본지식-여러가지 Array생성법
 
 - Numerical Python
 - 파이썬용 고성능 계산용 라이브러리
