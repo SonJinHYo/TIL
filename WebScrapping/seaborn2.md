@@ -101,4 +101,5 @@ sns.lineplot(
 )
 ```
 
-![image-20220929132151785](https://raw.githubusercontent.com/SonJinHYo/image_repo/main/image_server/image-20220929132151785.png)
+![image-20220929171037264](https://raw.githubusercontent.com/SonJinHYo/image_repo/main/image_server/image-20220929171037264.png)
+
