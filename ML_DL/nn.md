@@ -79,3 +79,45 @@
       
 
   - 오류 역전파 알고리즘을 사용. 역방향으로 진행하면서 한 번에 한 층씩 gradient를 계산하고 가중치를 갱신하는 방식의 오류 역전파 알고리즘을 사용한다.
+  
+  
+
+###  구조
+
+![image-20220929150636341](https://raw.githubusercontent.com/SonJinHYo/image_repo/main/image_server/image-20220929150636341.png)
+
+- 구조 (**2층만 볼 때**)
+  - d+1개의 입력노드 (d : 특징 개수 )
+  - c개의 출력노드(c: 부류 개수)
+  - p개의 출력 노드 ( p : 하이퍼 매개변수, 사용자가 정해주는 매개변수)
+  - p가 너무 크면 과잉적합, 너무 적으면 과소적합.
+    - 하이퍼 매개변수의 최적화가 필요(차후 내용)
+- 다층 퍼셉트론의 매개변수(가중치)
+  - 입력층-은닉층 을 연결하는 **U1**
+  - 은닉층-출력층을 연결하는 **U2**
+  - ![image-20220929151058877](https://raw.githubusercontent.com/SonJinHYo/image_repo/main/image_server/image-20220929151058877.png)
+  - **U**의 각 원소는 두 층을 연결하는 간선을 의미한다
+- 2층 퍼셉트론의 동작행렬
+  - **o** = f ( **U2**( f ( **U1 x**) ) ) (f는 활성함수)
+
+
+
+
+
+### 오류 역전파 알고리즘 
+
+###### 기계학습의 목표 : 모든 샘플을 옳게 분류하는 함수 f를 찾는 일
+
+
+
+#### 목적함수의 정의
+
+- <img src="https://raw.githubusercontent.com/SonJinHYo/image_repo/main/image_server/image-20220929152813204.png" alt="image-20220929152813204" style="zoom:67%;" />MSE(평균제곱오차) 로 정의
+- <img src="https://raw.githubusercontent.com/SonJinHYo/image_repo/main/image_server/image-20220929152850681.png" alt="image-20220929152850681" style="zoom:67%;" />
+- ![image-20220929153009541](https://raw.githubusercontent.com/SonJinHYo/image_repo/main/image_server/image-20220929153009541.png)
+
+- ![image-20220929153044877](https://raw.githubusercontent.com/SonJinHYo/image_repo/main/image_server/image-20220929153044877.png)
+
+##### 오류 역전파 알고리즘 (Error Back-propagation Algoritm)
+
+- 출력층의 오류를 역방향으로 전파하면 gradient를 계산하는 알고리즘
