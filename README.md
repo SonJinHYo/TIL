@@ -48,7 +48,7 @@ _21 TILs and counting..._
 - [terminal_code](django/terminal_code.md)
 
 ### [github](#github)
-- [](github/git_basic.md)
+- [Git이란, Git 시작](github/git_basic.md)
 - [git brach](github/git_branch.md)
 - [TIL readme 자동 업데이트 설정](github/github_TIL_Readme_Auto업데이트.md)
 
