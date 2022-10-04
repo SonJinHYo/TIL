@@ -4,7 +4,7 @@
 Today I Learned
 
 
-_21 TILs and counting..._
+_22 TILs and counting..._
 
 ---
 
@@ -22,6 +22,7 @@ _21 TILs and counting..._
 - [github](#github)
 
 ### [ML_DL](#ML_DL)
+- [심층 퍼셉트론 & CNN](ML_DL/DMLP_CNN.md)
 - [선형회귀](ML_DL/Linear_regression.md)
 - [신경망](ML_DL/nn.md)
 
