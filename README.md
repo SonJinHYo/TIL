@@ -4,7 +4,7 @@
 Today I Learned
 
 
-_19 TILs and counting..._
+_20 TILs and counting..._
 
 ---
 
@@ -48,6 +48,7 @@ _19 TILs and counting..._
 - [terminal_code](django/terminal_code.md)
 
 ### [github](#github)
+- [](github/git_basic.md)
 - [TIL readme 자동 업데이트 설정](github/github_TIL_Readme_Auto업데이트.md)
 
 [1]: https://simonwillison.net/2020/Apr/20/self-rewriting-readme/
