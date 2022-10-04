@@ -4,7 +4,7 @@
 Today I Learned
 
 
-_20 TILs and counting..._
+_21 TILs and counting..._
 
 ---
 
@@ -49,6 +49,7 @@ _20 TILs and counting..._
 
 ### [github](#github)
 - [](github/git_basic.md)
+- [git brach](github/git_branch.md)
 - [TIL readme 자동 업데이트 설정](github/github_TIL_Readme_Auto업데이트.md)
 
 [1]: https://simonwillison.net/2020/Apr/20/self-rewriting-readme/
