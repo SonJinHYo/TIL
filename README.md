@@ -10,7 +10,7 @@ _22 TILs and counting..._
 
 ### 3 most recent TILs
 
-- [Seaborn을 통한 시각화 - 기초3 (사이트의 질문 빈도 실습)](WebScrapping/seaborn3.md) - Thu Sep 29 16:55:30 2022 +0900
+- [Seaborn을 통한 시각화 - 기초3 (질문사이트의 질문 빈도 실습)](WebScrapping/seaborn3.md) - Thu Sep 29 16:55:30 2022 +0900
 - [Seaborn을 통한 시각화 - 기초2 (날씨정보 실습)](WebScrapping/seaborn2.md) - Thu Sep 29 16:55:13 2022 +0900
 - [Seaborn을 통한 시각화 - 기초](WebScrapping/seaborn.md) - Thu Sep 29 16:54:54 2022 +0900
 
@@ -41,7 +41,7 @@ _22 TILs and counting..._
 - [웹스크래핑 기초](WebScrapping/scrapping_basic.md)
 - [Seaborn을 통한 시각화 - 기초](WebScrapping/seaborn.md)
 - [Seaborn을 통한 시각화 - 기초2 (날씨정보 실습)](WebScrapping/seaborn2.md)
-- [Seaborn을 통한 시각화 - 기초3 (사이트의 질문 빈도 실습)](WebScrapping/seaborn3.md)
+- [Seaborn을 통한 시각화 - 기초3 (질문사이트의 질문 빈도 실습)](WebScrapping/seaborn3.md)
 
 ### [django](#django)
 - [프레임워크와 라이브러리](django/django_framework_library요약.md)
