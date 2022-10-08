@@ -8,12 +8,6 @@ _22 TILs and counting..._
 
 ---
 
-### 3 most recent TILs
-
-- [Seaborn을 통한 시각화 - 기초3 (질문사이트의 질문 빈도 실습)](WebScrapping/seaborn3.md) - Thu Sep 29 16:55:30 2022 +0900
-- [Seaborn을 통한 시각화 - 기초2 (날씨정보 실습)](WebScrapping/seaborn2.md) - Thu Sep 29 16:55:13 2022 +0900
-- [Seaborn을 통한 시각화 - 기초](WebScrapping/seaborn.md) - Thu Sep 29 16:54:54 2022 +0900
-
 ### Categories
 
 - [ML_DL](#ML_DL)
