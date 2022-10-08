@@ -355,5 +355,4 @@
   - 깊은 신경망에서는 층의 역할이 잘 구분됨
 
   - 얕은 신경망은 한 두개의 은닉층이 여러 형태의 특징을 모두 담당
-
     <img src="../../AppData/Roaming/Typora/typora-user-images/image-20221006155807062.png" alt="image-20221006155807062" style="zoom:67%;" />
