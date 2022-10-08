@@ -24,7 +24,7 @@ _22 TILs and counting..._
 
 ### [ML_DL](#ML_DL)
 - [심층 퍼셉트론 & CNN](ML_DL/DMLP_CNN.md)
-- [선형회귀](ML_DL/Linear_regression.md)
+- [선형 회귀](ML_DL/Linear_regression.md)
 - [신경망](ML_DL/nn.md)
 
 ### [Numpy_Pandas](#Numpy_Pandas)
