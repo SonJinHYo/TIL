@@ -36,7 +36,7 @@ _22 TILs and counting..._
 - [웹스크래핑 사전지식](WebScrapping/Background_Knowlege.md)
 - [Selenium 배경,기초(1)](WebScrapping/Selenium1.md)
 - [Selenium 기초(2) - Wait*Call](WebScrapping/Selenium2.md)
-- [Selenium 기초(3) - 마우스, 키보드 조작 / 라이브러리 모음](WebScrapping/Selenium3.md)
+- [Selenium 기초(3) - 마우스,키보드 조작 / 라이브러리 모음](WebScrapping/Selenium3.md)
 - [크롬 자동화 방지 우회](WebScrapping/chrome_1.md)
 - [웹스크래핑 기초](WebScrapping/scrapping_basic.md)
 - [Seaborn을 통한 시각화 - 기초](WebScrapping/seaborn.md)
