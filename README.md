@@ -4,17 +4,21 @@
 Today I Learned
 
 
-_23 TILs and counting..._
+_24 TILs and counting..._
 
 ---
 
 ### Categories
 
+- [Cloud](#Cloud)
 - [ML_DL](#ML_DL)
 - [Numpy_Pandas](#Numpy_Pandas)
 - [WebScrapping](#WebScrapping)
 - [django](#django)
 - [github](#github)
+
+### [Cloud](#Cloud)
+- [인공지능 모델 배포 - AWS - 클라우드 기초](Cloud/Basic.md)
 
 ### [ML_DL](#ML_DL)
 - [심층 퍼셉트론 & CNN](ML_DL/DMLP_CNN.md)
