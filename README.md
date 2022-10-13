@@ -4,7 +4,7 @@
 Today I Learned
 
 
-_24 TILs and counting..._
+_25 TILs and counting..._
 
 ---
 
@@ -23,6 +23,7 @@ _24 TILs and counting..._
 ### [ML_DL](#ML_DL)
 - [심층 퍼셉트론 & CNN](ML_DL/DMLP_CNN.md)
 - [선형 회귀](ML_DL/Linear_regression.md)
+- [서포트 벡터 머신 (SVM)](ML_DL/SVM.md)
 - [신경망](ML_DL/nn.md)
 - [회귀 종류](ML_DL/regressions.md)
 
