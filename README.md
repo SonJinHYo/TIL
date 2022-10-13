@@ -4,7 +4,7 @@
 Today I Learned
 
 
-_25 TILs and counting..._
+_26 TILs and counting..._
 
 ---
 
@@ -21,6 +21,7 @@ _25 TILs and counting..._
 - [인공지능 모델 배포 - AWS - 클라우드 기초](Cloud/Basic.md)
 
 ### [ML_DL](#ML_DL)
+- [최적화](ML_DL/DL_opt.md)
 - [심층 퍼셉트론 & CNN](ML_DL/DMLP_CNN.md)
 - [선형 회귀](ML_DL/Linear_regression.md)
 - [서포트 벡터 머신 (SVM)](ML_DL/SVM.md)
