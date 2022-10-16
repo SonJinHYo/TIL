@@ -4,7 +4,7 @@
 Today I Learned
 
 
-_26 TILs and counting..._
+_27 TILs and counting..._
 
 ---
 
@@ -32,6 +32,7 @@ _26 TILs and counting..._
 - [numpy Linear Algebra 정리1](Numpy_Pandas/np_linalg1.md)
 - [numpy Linear Algebra 정리2](Numpy_Pandas/np_linalg2.md)
 - [Numpy_기본지식-여러가지 Array생성법](Numpy_Pandas/numpy_basic.md)
+- [matplotlib으로 pandas데이터 육각형그래프로 표현하는 법](Numpy_Pandas/pandas_polar.md)
 
 ### [WebScrapping](#WebScrapping)
 - [웹스크래핑 사전지식](WebScrapping/Background_Knowlege.md)
