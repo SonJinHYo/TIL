@@ -4,13 +4,14 @@
 Today I Learned
 
 
-_27 TILs and counting..._
+_28 TILs and counting..._
 
 ---
 
 ### Categories
 
 - [Cloud](#Cloud)
+- [Flask](#Flask)
 - [ML_DL](#ML_DL)
 - [Numpy_Pandas](#Numpy_Pandas)
 - [WebScrapping](#WebScrapping)
@@ -19,6 +20,9 @@ _27 TILs and counting..._
 
 ### [Cloud](#Cloud)
 - [인공지능 모델 배포 - AWS - 클라우드 기초](Cloud/Basic.md)
+
+### [Flask](#Flask)
+- [플라스크 GET,POST,DELETE 이용해서 간단 CRUD구현](Flask/flask_prac1.md)
 
 ### [ML_DL](#ML_DL)
 - [딥러닝 최적화 개념정리](ML_DL/DL_opt.md)
