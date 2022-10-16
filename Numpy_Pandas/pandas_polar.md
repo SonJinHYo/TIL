@@ -1,5 +1,7 @@
 # matplotlib으로 pandas데이터 육각형그래프로 표현하는 법
 
+###### 데이터 출저 : kaggle - Marvel Superheroes
+
 ```python
 ## 판다스로 가져온 히어로 데이터 (히어로마다 능력치가 있다.)
 heros = stats[-9:]
