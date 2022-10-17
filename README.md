@@ -4,7 +4,7 @@
 Today I Learned
 
 
-_28 TILs and counting..._
+_29 TILs and counting..._
 
 ---
 
@@ -13,6 +13,7 @@ _28 TILs and counting..._
 - [Cloud](#Cloud)
 - [Flask](#Flask)
 - [ML_DL](#ML_DL)
+- [Matplotlib](#Matplotlib)
 - [Numpy_Pandas](#Numpy_Pandas)
 - [WebScrapping](#WebScrapping)
 - [django](#django)
@@ -31,6 +32,9 @@ _28 TILs and counting..._
 - [서포트 벡터 머신 (SVM)](ML_DL/SVM.md)
 - [신경망](ML_DL/nn.md)
 - [회귀 종류](ML_DL/regressions.md)
+
+### [Matplotlib](#Matplotlib)
+- [matplotlib workflow(시각화 과정) 정리](Matplotlib/matplotlib_workflow.md)
 
 ### [Numpy_Pandas](#Numpy_Pandas)
 - [numpy Linear Algebra 정리1](Numpy_Pandas/np_linalg1.md)
