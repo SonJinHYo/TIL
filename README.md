@@ -4,7 +4,7 @@
 Today I Learned
 
 
-_28 TILs and counting..._
+_29 TILs and counting..._
 
 ---
 
@@ -35,6 +35,7 @@ _28 TILs and counting..._
 
 ### [Matplotlib](#Matplotlib)
 - [matplotlib workflow(시각화 과정) 정리](Matplotlib/matplotlib_workflow.md)
+- [matplotlib으로 pandas데이터 육각형그래프로 표현하는 법](Matplotlib/polar_matplotlib.md)
 
 ### [Numpy_Pandas](#Numpy_Pandas)
 - [numpy Linear Algebra 정리1](Numpy_Pandas/np_linalg1.md)
