@@ -4,7 +4,7 @@
 Today I Learned
 
 
-_30 TILs and counting..._
+_31 TILs and counting..._
 
 ---
 
@@ -59,6 +59,7 @@ _30 TILs and counting..._
 - [참고로 장고에게 있는 models.Model 을 그대로 상속받아도 되지만](django/make_app.md)
 - [poetry로 django개발환경 설정하기](django/poetry_setting_venv.md)
 - [terminal_code](django/terminal_code.md)
+- [# View, Template 생성기초](django/view_template.md)
 
 ### [github](#github)
 - [Git이란, Git 시작](github/git_basic.md)
