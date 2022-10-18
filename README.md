@@ -4,7 +4,7 @@
 Today I Learned
 
 
-_29 TILs and counting..._
+_30 TILs and counting..._
 
 ---
 
@@ -32,6 +32,7 @@ _29 TILs and counting..._
 - [서포트 벡터 머신 (SVM)](ML_DL/SVM.md)
 - [신경망](ML_DL/nn.md)
 - [회귀 종류](ML_DL/regressions.md)
+- [비지도 학습](ML_DL/unsupervised_learning.md)
 
 ### [Matplotlib](#Matplotlib)
 - [matplotlib workflow(시각화 과정) 정리](Matplotlib/matplotlib_workflow.md)
