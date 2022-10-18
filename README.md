@@ -59,7 +59,7 @@ _31 TILs and counting..._
 - [관리자,앱 생성](django/make_app.md)
 - [poetry로 django개발환경 설정하기](django/poetry_setting_venv.md)
 - [terminal_code](django/terminal_code.md)
-- [# View, Template 생성기초](django/view_template.md)
+- [View, Template 생성기초](django/view_template.md)
 
 ### [github](#github)
 - [Git이란, Git 시작](github/git_basic.md)
