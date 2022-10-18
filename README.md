@@ -55,7 +55,7 @@ _30 TILs and counting..._
 - [Seaborn을 통한 시각화 - 기초3 (질문사이트의 질문 빈도 실습)](WebScrapping/seaborn3.md)
 
 ### [django](#django)
-- [프레임워크와 라이브러리](django/django_framework_library요약.md)
+- [django 기초지식](django/django_요약.md)
 - [앱 생성하기](django/make_app.md)
 - [poetry로 django개발환경 설정하기](django/poetry_setting_venv.md)
 - [terminal_code](django/terminal_code.md)
