@@ -4,7 +4,7 @@
 Today I Learned
 
 
-_32 TILs and counting..._
+_33 TILs and counting..._
 
 ---
 
@@ -33,6 +33,7 @@ _32 TILs and counting..._
 - [앙상블 학습, 랜덤포레스트](ML_DL/ensemble.md)
 - [신경망](ML_DL/nn.md)
 - [회귀 종류](ML_DL/regressions.md)
+- [준지도학습, 전이학습](ML_DL/semi-supervised-learning.md)
 - [비지도 학습](ML_DL/unsupervised_learning.md)
 
 ### [Matplotlib](#Matplotlib)
