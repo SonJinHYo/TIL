@@ -115,3 +115,114 @@
 
 <img src="https://raw.githubusercontent.com/SonJinHYo/image_repo/main/image_server/image-20221101150610725.png" alt="image-20221101150610725" style="zoom:80%;" />
 
+- 협동이 아닌 2개가 서로 가르치는 방식으로 수정하면
+
+  <img src="https://raw.githubusercontent.com/SonJinHYo/image_repo/main/image_server/image-20221103150018526.png" alt="image-20221103150018526" style="zoom:67%;" />
+
+#### 그래프 방법
+
+- 샘플 사이의 유사도에 따라 그래프를 구성
+  - ex. 샘플마다 k개의 최근접 이웃을 찾아 edge로 이어줌
+  - 복잡한 비선형 분포를 반영하기 위해 정교한 그래프 구축 방법이 필요
+- 최소 분할을 적용하여 분할선을 찾음
+- 같은 부분집합에 속하는 샘플에 같은 부류 레이블을 부여
+
+<img src="https://raw.githubusercontent.com/SonJinHYo/image_repo/main/image_server/image-20221103150359735.png" alt="image-20221103150359735" style="zoom:67%;" />
+
+#### 밀집 지역 회피
+
+- 결정 경계가 밀집 지역을 지나면 오분류 가능성 높아짐
+
+  =>밀집 지역을 회피하여 결정 경계를 정함
+
+- <img src="https://raw.githubusercontent.com/SonJinHYo/image_repo/main/image_server/image-20221103150551636.png" alt="image-20221103150551636" style="zoom:80%;" />
+
+
+
+## 전이 학습
+
+- 일상에서의 전이 학습
+  - 피아노를 칠 줄 아는 사람은 못 치는 사람보다 바이올린을 빨리 배운다
+  - c언어를 잘 다루면 C++도 쉽게 잘 다룬다.
+- 기계 학습에서 전이 학습
+  - 어떤 도메인에서 제작한 프로그램을, 데이터가 적어 애를 먹는 새로운 도메인에 적용하여 높은 성능을 얻는 기법
+  - 현대 기계 학습에서 널리 활용
+
+#### 과업이 다른 경우 , 도메인이 다른 경우
+
+과업이 달라지는 경우 
+
+- 영상 인식에서 음성 인식으로 전이.
+  - 두 과업 사이의 거리가 아주 먼 상황 (실용적인 연구 결과가 없음)
+
+- 자연 영상을 1000부류로 인식하는 과업을 200종 나뭇잎을 인식하는 과업으로 전이.
+  - 과업간 거리가 짧아 좀 더 실용적
+
+
+
+도메인이 달라지는 경우: 특징 공간이 다른 경우, 특징 공간은 같지만 데이터의 확률 분포가 다른 경우로 구분
+
+- 특징 공간이 다른 경우 .
+  - 영불 번역기를 영한 번역기로 전이
+  - 한국어 정보 검색기를 베트남어 정보 검색기로 전이
+- 특징 공간은 같지만 데이터의 분포가 다른 경우
+  - 한국인이 쓴 필기 숫자 데이터베이스를 다른 나라에서 사용할 때, 나라별로 쓰는 방식의 차이가 있을 수 있음
+  - 전이 학습을 잘 해낸다면 소량의 데이터로 좋은 성능을 적용 가능
+
+
+
+### 과업 전이
+
+#### 기성 CNN 특징
+
+- 성공적으로 학습된 신경망의 특징 추출 부분을 **다른 과업**에 활용
+
+  <img src="https://raw.githubusercontent.com/SonJinHYo/image_repo/main/image_server/image-20221103153811503.png" alt="image-20221103153811503" style="zoom:67%;" />
+
+#### 동결 방식
+
+- 위 그림의 파란색 실선 화살표로 표시된 층 중 하나를 골라 특징을 취한다.
+- 이 특징은 컨볼루션 층을 여럿 통과하면서 정제외었으므로 얕은 신경망(MLP같은)에 사용해도 높은 성능으로 분류 가능
+
+
+
+<img src="https://raw.githubusercontent.com/SonJinHYo/image_repo/main/image_server/image-20221103153942713.png" alt="image-20221103153942713" style="zoom:67%;" />
+
+#### 미세 조정 방식
+
+- 위 그림의 FC 부분을 떼어낸 후, 새로운 구조를 덧붙여 다시 학습
+- **이 때, 학습률은 낮게 설정**
+  - 높으면 원래 가중치가 훼손되어 버림
+
+<img src="https://raw.githubusercontent.com/SonJinHYo/image_repo/main/image_server/image-20221103154051264.png" alt="image-20221103154051264" style="zoom:67%;" />
+
+
+
+### 도메인 전이
+
+- 과업은 같은데( =레이블 공간이 같다), 도메인이 다른 상황
+- 그 중 특징 공간이 같고 확률 분포가 다른 상황을 **도메인 적응**이라 함
+
+
+
+#### 도메인 전이 방법
+
+<img src="https://raw.githubusercontent.com/SonJinHYo/image_repo/main/image_server/image-20221103154912379.png" alt="image-20221103154912379" style="zoom:67%;" />
+
+
+
+#### DAUME2009 방법
+
+- 특징 공간을 3배로 확장하여 두 도메인의 확률분포를 맞춤
+
+#### Sun2016 방법
+
+- Daume2009 방법을 비지도 도메인으로 확장
+- <img src="https://raw.githubusercontent.com/SonJinHYo/image_repo/main/image_server/image-20221103155543805.png" alt="image-20221103155543805" style="zoom:80%;" />
+  - 파란 점은 원천 도메인 샘플, 빨간 점은 목표 도메인 샘플
+  - 화이트닝 변환과 컬러링 변환으로 두 도메인의 확률분포를 맞춤
+    - 화이트닝 == 정규화
+
+- 알고리즘
+
+  ![image-20221103155648735](https://raw.githubusercontent.com/SonJinHYo/image_repo/main/image_server/image-20221103155648735.png)
