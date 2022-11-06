@@ -4,7 +4,7 @@
 Today I Learned
 
 
-_35 TILs and counting..._
+_36 TILs and counting..._
 
 ---
 
@@ -12,6 +12,7 @@ _35 TILs and counting..._
 
 - [Cloud](#Cloud)
 - [Flask](#Flask)
+- [Kaggle_Note](#Kaggle_Note)
 - [ML_DL](#ML_DL)
 - [Matplotlib](#Matplotlib)
 - [Numpy_Pandas](#Numpy_Pandas)
@@ -25,6 +26,9 @@ _35 TILs and counting..._
 
 ### [Flask](#Flask)
 - [플라스크 GET,POST,DELETE 이용해서 간단 CRUD구현](Flask/flask_prac1.md)
+
+### [Kaggle_Note](#Kaggle_Note)
+- [Kaggle_TIL](Kaggle_Note/kaggle_til.md)
 
 ### [ML_DL](#ML_DL)
 - [딥러닝 최적화 개념정리](ML_DL/DL_opt.md)
