@@ -4,7 +4,7 @@
 Today I Learned
 
 
-_36 TILs and counting..._
+_37 TILs and counting..._
 
 ---
 
@@ -36,6 +36,7 @@ _36 TILs and counting..._
 - [선형 회귀](ML_DL/Linear_regression.md)
 - [서포트 벡터 머신 (SVM)](ML_DL/SVM.md)
 - [앙상블 학습, 랜덤포레스트](ML_DL/ensemble.md)
+- [GAN (Generative Adeversarial Network)](ML_DL/gan.md)
 - [신경망](ML_DL/nn.md)
 - [회귀 종류](ML_DL/regressions.md)
 - [준지도학습, 전이학습](ML_DL/semi-supervised-learning.md)
