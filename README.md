@@ -4,7 +4,7 @@
 Today I Learned
 
 
-_37 TILs and counting..._
+_38 TILs and counting..._
 
 ---
 
@@ -39,6 +39,7 @@ _37 TILs and counting..._
 - [GAN (Generative Adeversarial Network)](ML_DL/gan.md)
 - [신경망](ML_DL/nn.md)
 - [회귀 종류](ML_DL/regressions.md)
+- [RNN](ML_DL/rnn.md)
 - [준지도학습, 전이학습](ML_DL/semi-supervised-learning.md)
 - [비지도 학습](ML_DL/unsupervised_learning.md)
 
