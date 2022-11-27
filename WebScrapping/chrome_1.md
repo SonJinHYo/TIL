@@ -8,6 +8,8 @@
 
 ```python
 # 크롬 웹드라이버 구동 라이브러리
+## install selenium, webdriver_manager, fake_user
+
 from tkinter import Button
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
