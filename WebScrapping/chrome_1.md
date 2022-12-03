@@ -32,8 +32,8 @@ options = webdriver.ChromeOptions()
 # 자동화 감지 피하기 옵션
 options.add_argument("--disable-blink-features=AutomationControlled")
 
-# 봇감지 피하기를 위한 임의의 에이전트 지정
-user_ag = UserAgent().random
+# 봇감지 피하기를 위한 임의의 에이전트 지정 (수정 2022-12-03)
+user_ag = UserAgent(verify_ssl=False).random
 options.add_argument('user-agent=%s'%user_ag)
 
 # 프로그램 자동화 안내메세지 삭제
