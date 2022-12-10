@@ -4,7 +4,7 @@
 Today I Learned
 
 
-_39 TILs and counting..._
+_40 TILs and counting..._
 
 ---
 
@@ -17,6 +17,7 @@ _39 TILs and counting..._
 - [Matplotlib](#Matplotlib)
 - [Numpy_Pandas](#Numpy_Pandas)
 - [Paper_Review](#Paper_Review)
+- [SQL](#SQL)
 - [WebScrapping](#WebScrapping)
 - [django](#django)
 - [github](#github)
@@ -55,6 +56,9 @@ _39 TILs and counting..._
 
 ### [Paper_Review](#Paper_Review)
 - [Image Classification](Paper_Review/summary.md)
+
+### [SQL](#SQL)
+- [SQL_기본(1)](SQL/sql_1.md)
 
 ### [WebScrapping](#WebScrapping)
 - [웹스크래핑 사전지식](WebScrapping/Background_Knowlege.md)
