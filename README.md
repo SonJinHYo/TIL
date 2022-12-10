@@ -4,7 +4,7 @@
 Today I Learned
 
 
-_40 TILs and counting..._
+_41 TILs and counting..._
 
 ---
 
@@ -59,6 +59,7 @@ _40 TILs and counting..._
 
 ### [SQL](#SQL)
 - [SQL_기본(1)](SQL/sql_1.md)
+- [SQL과 데이터베이스 Basic](SQL/sql_basic.md)
 
 ### [WebScrapping](#WebScrapping)
 - [웹스크래핑 사전지식](WebScrapping/Background_Knowlege.md)
