@@ -18,3 +18,22 @@ class CommonModel(models.Model):
     class Meta:
         abstract = True
 ```
+
+# app의 model에서 ForeignKey를 선언할 때 항상 on_delete를 설정
+``` python
+user = models.ForeignKey(
+    "users.User",
+    on_delete = models.CASCADE
+)
+```
+ - on_delete : ForeignKey 주체가 삭제될 시 설정
+  - CASCADE : 해당 정보도 삭제
+  - SET_NULL : NULL값으로 처리. 이를 위해선 `null = True`  , `blank = True` 함께 설정
+   ``` python
+    user = models.ForeignKey(
+        "users.User",
+        null  = True,
+        blank = True,
+        on_delete = models.SET_NULL,
+    )
+    ```
