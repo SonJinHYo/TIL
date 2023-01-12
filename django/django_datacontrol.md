@@ -4,6 +4,9 @@
  - `>>> from rooms.models import Room` : rooms앱의 models에 있는 Room import
  - `>>> Room.objects` : Room 데이터에 접근
 
+### lookup ( __ ) : 
+ - 변수 뒤에 2개 underbar을 붙여서 조건을 다는 것 (아래 filter에 예시)
+ - lookup 종류 : https://docs.djangoproject.com/en/4.1/ref/models/querysets/#field-lookups
 
 #### `>>> Room.obects.all()` : 모든 데이터 표시
 
