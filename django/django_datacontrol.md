@@ -62,3 +62,13 @@ owner = models.ForeignKey(
     on_delete=models.CASCADE,
 )
 ```
+
+##### room_set 대신 `user.rooms` 로 접근하려면
+ - ForeignKey에 related_name 추가
+``` python
+owner = models.ForeignKey(
+    "users.User",
+    on_delete=models.CASCADE,
+    related_name = "rooms",
+)
+```
