@@ -37,3 +37,14 @@ user = models.ForeignKey(
         on_delete = models.SET_NULL,
     )
     ```
+
+# Admin에서 search_box 설정
+``` python
+# 입력순으로 정렬
+search_fields = (
+# 키워드만 입력시 포함된 단어 모두 출력
+"^name", # 키워드로 시작하는 것만
+"=price", # 키워드와 완전히 같은 것만
+"owner__username", # owener의 username 
+)
+```
