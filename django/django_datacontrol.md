@@ -20,6 +20,8 @@
      -  gt,lt,gte,lte : 큰것,작은것,크거나 같은거, 작거나 같은것 (위 예시는 price > 15 인 것)
      -  contains="sss" : 변수들 내에 sss가 포함된 것들
      -  stratswith="sss" : 변수들 내에 sss로 시작하는 것들
+ - 조건 2개 이상 가능 : `>>> Room.obects.get(pet_friendly = True, get(price__gt = 15)`
+
 #### `>>> Amenity.objects.create(name="Amenity from the console", description = "How cool is this!")`
  - create() 함수는 생성함수
  - 단 생성하기 위해선 해당 클래스의 요소들을 알고 있어야 올바르게 생성이 가능
@@ -27,3 +29,7 @@
 #### `>>> object.delete()`
  - delete() 함수는 삭제함수. 해당 object를 삭제
 
+#### `objects.count()` : 해당 objects 갯수 반환
+
+## QuerySet
+ - 데이터를 더 잘 다룰수 있게 연산자까지 포함한 Set
