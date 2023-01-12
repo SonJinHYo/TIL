@@ -1,6 +1,6 @@
-# python trminal로 데이터 다루기
+# django의 python teminal로 데이터 다루기
 
-## `python manage.py shell` : django 프레임워크에 기반한 python terminal 실행
+## `python manage.py shell` : django 프레임워크에 기반한 python terminal 실행 (일반 python terminal이랑 다름)
  - `>>> from rooms.models import Room` : rooms앱의 models에 있는 Room import
  - `>>> Room.objects` : Room 데이터에 접근
 
