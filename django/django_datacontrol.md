@@ -44,6 +44,7 @@
  - `Room.objects.filter(owner__username = jane)`
   - owner Room의 요소, username은 users.User의 요소이다
   - lookup을 이용하여 Room에서 User로 역으로 접근
+  - 
 #### reverse accesse를 이용해서 특정 room에 있는 user의 모든 room 보기
 ```
 >>> me = Room.objects.get(pk = 2)
@@ -51,4 +52,13 @@
 
 # 만약 me가 어떤 속성을 가지는지 모른다면
 >>> dir(me) # me가 가지는 모든 속성을 표시 
+```
+
+#### room_set이 생성되는 시점
+``` python
+# owner은 users.User을 ForeignKey로 사용하고
+owner = models.ForeignKey(
+    "users.User", # 이 때 user에 room_set 생성
+    on_delete=models.CASCADE,
+)
 ```
