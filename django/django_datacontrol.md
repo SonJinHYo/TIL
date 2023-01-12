@@ -4,9 +4,7 @@
  - `>>> from rooms.models import Room` : rooms앱의 models에 있는 Room import
  - `>>> Room.objects` : Room 데이터에 접근
 
-### lookup ( __ ) : 
- - 변수 뒤에 2개 underbar을 붙여서 조건을 다는 것 (아래 filter에 예시)
- - lookup 종류 : https://docs.djangoproject.com/en/4.1/ref/models/querysets/#field-lookups
+
 
 #### `>>> Room.obects.all()` : 모든 데이터 표시
 
@@ -36,3 +34,21 @@
 
 ## QuerySet
  - 데이터를 더 잘 다룰수 있게 연산자까지 포함한 Set
+
+
+## lookup ( __ ) : 
+ - 변수 뒤에 2개 underbar을 붙여서 조건을 다는 것 (위 filter에 예시)
+ - lookup 종류 : https://docs.djangoproject.com/en/4.1/ref/models/querysets/#field-lookups
+
+### reverse accesses
+ - `Room.objects.filter(owner__username = jane)`
+  - owner Room의 요소, username은 users.User의 요소이다
+  - lookup을 이용하여 Room에서 User로 역으로 접근
+#### reverse accesse를 이용해서 특정 room에 있는 user의 모든 room 보기
+```
+>>> me = Room.objects.get(pk = 2)
+>>> me.room_set
+
+# 만약 me가 어떤 속성을 가지는지 모른다면
+>>> dir(me) # me가 가지는 모든 속성을 표시 
+```
