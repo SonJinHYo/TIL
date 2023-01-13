@@ -4,7 +4,7 @@
 Today I Learned
 
 
-_45 TILs and counting..._
+_46 TILs and counting..._
 
 ---
 
@@ -82,6 +82,7 @@ _45 TILs and counting..._
 - [django 기초지식](django/django_요약.md)
 - [관리자,앱 생성](django/make_app.md)
 - [poetry로 django개발환경 설정하기](django/poetry_setting_venv.md)
+- [REST API](django/rest.md)
 - [terminal_code](django/terminal_code.md)
 - [django Tip](django/tip.md)
 - [View, Template 생성기초](django/view_template.md)
