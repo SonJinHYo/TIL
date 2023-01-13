@@ -14,3 +14,12 @@
   - 참고 : https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
 
 
+## serializer
+1. serializer는 단순한 번역기이다
+2. 사용자가 우리 서버로 데이터를 보낼수 있게 하면서 request.data를 통해 데이터를 보낼수 있다
+3. 우리는 사용자를 신뢰하지 못하기 때문에
+is_valid
+serializer.save()는 serializer의 create메소드를 부를것이다
+
+update같은 경우는 사용자가 수정하고 싶어하는 category의 데이터와 사용자가 보낸 데이터로 만들것이다
+기본값 -> instance.name
