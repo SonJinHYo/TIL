@@ -31,6 +31,13 @@
   - 차이점 : 하위 문제가 중복해서 일어나지 않는 상황에선 divide & conquer
 
 
+### Virtual Memory
+####Memory
+- 데이터 및 코드를 저장하는 장치
+- 주기억장치 : 내부 기억장치 (register, cache memory)
+- 보조기억장치 : 외부 기억장치 (SSD, HDD)
+#### virtual memory
+- 초창기 컴퓨터에서는 
 
 
 
