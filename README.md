@@ -4,12 +4,13 @@
 Today I Learned
 
 
-_46 TILs and counting..._
+_47 TILs and counting..._
 
 ---
 
 ### Categories
 
+- [CS_Basic](#CS_Basic)
 - [Cloud](#Cloud)
 - [Flask](#Flask)
 - [Kaggle_Note](#Kaggle_Note)
@@ -23,6 +24,9 @@ _46 TILs and counting..._
 - [django](#django)
 - [github](#github)
 - [teamwork_flow](#teamwork_flow)
+
+### [CS_Basic](#CS_Basic)
+- [voygerX](CS_Basic/voyagerX.md)
 
 ### [Cloud](#Cloud)
 - [인공지능 모델 배포 - AWS - 클라우드 기초](Cloud/Basic.md)
