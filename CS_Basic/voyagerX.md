@@ -116,4 +116,68 @@
 
 
 ### Database Index
-- 
+- 효율적인 검색을 위해 데이터에 Index를 부여. (SELECT 쿼리의 WHERE에 사용할 컬럼의 효율적 검색)
+- 좋은 컬럼(Index) 선정기준 4가지
+  1. Cardinality : 높을수록 (컬럼의 값의 중복도가 낮을수록)
+  2. Selectivity : 낮을수록 (한 컬럼이 가진 값 하나로 적은 row가 탐색) (일반적으로 5~10%가 적당)
+  3. 조회 활용도 : 높을수록
+  4. 수정 빈도 : 낮을수록
+- (과한) Index 단점 : 전체적인 DB 성능 부하
+  1. 메모리를 많이 잡아먹는다
+  2. 컬럼 값 수정시 테이블 갱신으로 인해 느려질 수 있다.
+  3. DML에서 INSERT, UPDATE, DELETE의 효율이 떨어짐. (다만 UPDATE, DELETE는 찾는 속도가 빨라져서 큰 영향이 없을 수 있음)
+- Index 장점 : 효율적이고 빠른 SELECT
+
+
+### NoSQL
+#### Base
+- DMBS (DataBase Management System) : 사용자와 DB 사이에서 사용자의 요구에 따라 데이터를 생성 및 DB를 관리해주는 SW
+- SQL (Structured Query Language) : 관계형 데이터베이스(RDB) 관리 시스템의 데이터를 관리하기 위해 설계된 언어
+- RDBMS : RDB를 관리하는 시스템. 모든 데이터를 2차원 테이블 형태로 표현하는 DB
+#### NoSQL
+- RDBMS와 달리 테이블 간 관계를 정의하지 않음 (테이블 간 Join 불가능)
+- 빅데이터의 등장으로 트래픽이 급증 => RDBMS 단점(성능) 향상을 보완하기 위해 등장
+  - 데이터의 일관성을 포기
+  - 비용을 고려하여, 여러 대의 데이터에 분산 저장하는 Scale-Out 목표로 등장
+- 관리 기술
+  1. Key-Value Database
+    - 데이터가 Key-Value 쌍으로 저장이 된다.
+    - Key값은 어떤 형태의 데이터라도 담을 수 있다.(이미지, 비디오 등)
+    - API가 간단하여 속도가 빠름
+    - 대표DB : Redis, Amazon Dynamo DB, Riak
+  2. Document Database
+    - Key, Document 형태로 저장
+    - Value와의 차이점 : Value값이 계층적 형태의 Document로 저장 (객체와 유사. 하나의 객체를 여러 테이블에 나눠서 저장 X)
+    - 객체-관계 매핑이 필요 X (객체를 Document로 저장하니까)
+    - 속도가 빠르지만 사용이 번거로움
+    - 대표DB : MongoDB, CouthDB
+  3. Wide Column Database
+    - Key값이 필드를 결정
+      - Key : Row, Column-family, Column-name을 가짐
+      - 연관된 데이터는 같은 Column-family에 속하고 각자의 Column-name을 가짐
+      - 질의는 Row, Column-family, Column-name 으로 수행
+    - 대표DB : HBase, Hypertable
+  4. Graph Database
+    - 데이터를 Node, Edge, Property와 함께 **그래프 구조**를 사용하는 DB
+    - 데이터 간의 관계가 탐색의 Key일 경우 적합 (ex. 소셜 네트워크의 친구의 친구 찾기)
+    - 대표DB : Neo4J
+
+
+### 공유기(Router)
+-  통신방법
+  1. 클라이언트가 서버의 IP로 접속할 때, 클라이언트의 IP또한 서버로 전달
+  2. 인터넷에 접속 시 (와이파이 or 유선) 해당 기기에 IP가 부여
+    - 통신사와 계약하여 케이블 회선을 받아 인터넷에 접속이 가능한 기기여야함 (인터넷 사용이 가능한 모든 기기는 IP주소를 가짐)
+- 사용 이유 : 하나의 IP주소를 공유할 수 있다. (기기당 통신사와 계약할 필요가 없어짐)
+- 작동 원리 
+  - WAN (Wide Area Network)
+    - 통신사로부터 부여받은 케이블을 꽂는 단자
+    - 케이블을 WAN단자에 연결하면 **통신사로부터 부여받은 IP는공유기가 차지**
+    - 부여받은 IP는 전세계 어디서든 접근 가능한 IP가 된다. **public IP address(공용IP)**라고 부름
+  - LAN (Local Area Network)
+    - 하나의 인터넷 케이블로 여러 기기들을 유선/무선으로 연결할 수 있는 단자
+    - LAN으로 연결된 기기들은 IP를 부여받고, 공유기도 해당 IP를 받음. 공유기는 2개의 IP를 가짐
+    - 받는 주소가 private IP address(사설IP). 외부에서 바로 접속 불가능
+      - 192.168.~.~ 가 사설IP
+      - 공용IP는 중복X, 사설IP는 중복 가능
+
