@@ -181,3 +181,31 @@
       - 192.168.~.~ 가 사설IP
       - 공용IP는 중복X, 사설IP는 중복 가능
 
+
+
+### HTTP (HyperText Transfer Protocol)
+- HyperText : 링크를 통해 다른 문서로 연결될 수 있는 문서
+- Transfer : 를 전송하는
+- Protocol : 규격이 정해진 규칙 체계
+- **클라이언트(브라우저)가 웹 서버 정보를 주고받을 수 있는 프로토콜**
+#### HTTP/0.9
+- One-Line Protocol이라 불리고 버전 번호가 없이 발행
+- GET 메서드만 존재. HTML만 전송 가능. 상태나 오류코드 X
+- 서버에 연결되면 프로토콜, 서버, 포트가 불필요해져서 매우 단순
+#### HTTP/1.0
+- 버전 정보를 명시하기 시작
+- status code 추가
+- request, response에 header 개념 추가
+  - 메타데이터 전송 허용
+  - 유연성 및 확장성
+  - Content-Type을 명시하면서 다른 타입의 문서도 전달 가능
+#### HTTP/1.1
+이전 버전의 모호함을 없애고 명확한 정의를 사용
+- 커넥션 재사용 가능 : 기존 연결과의 최초 연결과정 생략 가능
+- Pipelining 추가 : 이전 요청의 응답이 완전히 전송되기 전에 다음 요청이 가능 => 통신 대기시간 감소
+- 추가적인 캐시 제어 매커니즘 도입
+- Language, Encoding, Type 등을 포함한 컨텐츠 전송
+- header의 **Host** Field : 동일한 IP주소에 다른 도메인을 호스트하는 기능이 가능해짐
+##### HTTPS (HTTP Secure)
+- TCP/IP 스택을 통해 HTTP를 전송하는 대신 **암호화된 전송 계층인 SSL**을 만듦.
+- SSL(Secure Sockets Layer) 은 TLS(Transport Layer Security)로 발전. 
