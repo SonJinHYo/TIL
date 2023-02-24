@@ -209,3 +209,51 @@
 ##### HTTPS (HTTP Secure)
 - TCP/IP 스택을 통해 HTTP를 전송하는 대신 **암호화된 전송 계층인 SSL**을 만듦.
 - SSL(Secure Sockets Layer) 은 TLS(Transport Layer Security)로 발전. 
+##### RESTful API
+- 2000년에 새로운 패턴으로 등장
+- 표준 규격이 없었지만 2010부터 매우 일반적으로 사용
+##### HTTP/1.1 동작 원리
+- HTTP/1.1 Baseline 통신 : 여러 request가 들어오면 request-response-request-response 식의 과정
+- HTTP/1.1 Pipelinig 통신 : 여러 request이 들어오면 request들을 한번에 받고 response. **response순서가 request 순서와 같음**
+- HTTP/1.1 Multiplexing 통신 : Pipelining 통신에서 **response순서가 request 순서와 다를 수 있음**
+##### HTTP/1.1 단점
+- HOL Blocking : 앞선 response가 길어지면 뒷부분도 길어진다
+- RTT(Round Trip Time, 요청에 대한 응답까지의 시간) 증가 : request별로 Connection을 만들고 3-way-handshake가 반복적으로 일어나며 RTT 증가
+- 무거운 Header 구조 : 많은 메타 정보, 중복된 헤더값, cookie 정보 등이 포함되며 성능이 저하
+##### SPDY
+- 리소스 증가, 다수의 도메인, 동적 웹페이지, 보안 등등 웹 환경의 변화 => 전송 지연
+- SPDY : 전송 지연 문제 해결을 위한 새로운 프로토콜(Google). 상당한 성능 향상과 효율을 보임
+- HTTP/2 초안의 규격이 됨
+- 특징 (HTTP/2와 대부분 겹침)
+  - 항상 TLS 위에서 동작 (HTTPS로 작성된 웹 사이트에만 적용 가능)
+  - HTTP 헤더 압축 : 요청이 많아질 수록 압축률은 커지고, 모바일에서 효과가 크게 보임
+  - 텍스트가 아닌 Binary Protocol : Parsing이 빠르고 오류 발생이 낮음
+  - Multiplexing : 하나의 커넥션 안에서 다수의 독립적인 스트립을 동시에 처리
+  - Full-duplex interleaving & Prioritization : 다름 스트림이 끼어드는 것을 허용
+  - Server Push
+
+
+#### HTTP/2
+- HTTP/1의 확장. 기존 HTTP/1.과의 호환성을 유지하며 성능에 초점을 맞춘 프로토콜
+- 특징
+  - Multiplexed Streams 
+    - 하나의 TCP 연결을 통해 여러 데이터 요청을 **병렬**로 전송 가능
+    - Connection 한 개로 여러 개의 메세지를 주고 받을 수 있으며 응답 순서에 상관없이 Stream으로 주고받는다.
+  - Header Compression
+    - 중복 헤더 프레임을 압축해서 전송. (HPACK 규격 사용)
+  - Binary Protocol
+    - 텍스트와 공백들이 섞여 혼동이 발생하던 명령들보다 명령어를 단순하게 구현
+    - 데이터 파싱이 빠르고 오류 발생이 낮아짐
+    - 네트워크 리소스의 효과적 사용
+    - 텍스트 특성과 관련된 보안 문제 해결
+    - HTTP/2의 다른 기능(압툭 멀티플렉싱, 우선 순위 지정, 흐름 제어 등) 활성화
+  - Server Push
+    - 서버에 요청되지 않았지만 향후 요청에서 예상되는 추가 정보를 클라이언트에 전송할 수 있음.
+      - ex. 리소스X에 대해 요청하고 리소스Y가 X파일에서 참조된다면 X,Y를 함께 push
+    - 유용성
+      - 클라이언트는 push된 리소스를 캐시에 저장 => 여러 페이지에 걸쳐서 캐시를 재사용
+      - 서버는 Multiplexing으로 요청한 정보와 함께 푸쉬된 리소스를 전송 가능
+      - 서버는 푸쉬되는 리소스의 우선 순위를 지정 가능
+      - 클라이언트의 선택적 리소스 관리
+  - Stream Prioritization
+    - 클라이언트가 선호하는 응답 수신 방식을 지정해서 응답을 받을 수 있음 => 리소스간 의존 관계를 고려하여 우선 순위를 설정 
