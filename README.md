@@ -4,7 +4,7 @@
 Today I Learned
 
 
-_47 TILs and counting..._
+_46 TILs and counting..._
 
 ---
 
@@ -23,7 +23,6 @@ _47 TILs and counting..._
 - [WebScrapping](#WebScrapping)
 - [django](#django)
 - [github](#github)
-- [teamwork_flow](#teamwork_flow)
 
 ### [CS_Basic](#CS_Basic)
 - [# 프로그래밍 기술 질문](CS_Basic/voyagerX.md)
@@ -96,9 +95,6 @@ _47 TILs and counting..._
 - [git brach](github/git_branch.md)
 - [TIL readme 자동 업데이트 설정](github/github_TIL_Readme_Auto업데이트.md)
 - [타이포라 이미지 자동 업로드 에러](github/typora_token.md)
-
-### [teamwork_flow](#teamwork_flow)
-- [분업](teamwork_flow/tip1.md)
 
 [1]: https://simonwillison.net/2020/Apr/20/self-rewriting-readme/
 [2]: https://github.com/jbranchaud/til
