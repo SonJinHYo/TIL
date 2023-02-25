@@ -1,6 +1,4 @@
-# voygerX
-
-## 기술 질문
+## 프로그래밍 기술 질문
 
 ### PNG, JPG
 #### JPG (Joint Photographic Experts Group)
