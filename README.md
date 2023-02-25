@@ -26,7 +26,7 @@ _47 TILs and counting..._
 - [teamwork_flow](#teamwork_flow)
 
 ### [CS_Basic](#CS_Basic)
-- [voygerX](CS_Basic/voyagerX.md)
+- [# 프로그래밍 기술 질문](CS_Basic/voyagerX.md)
 
 ### [Cloud](#Cloud)
 - [인공지능 모델 배포 - AWS - 클라우드 기초](Cloud/Basic.md)
