@@ -1,5 +1,3 @@
-# JS 기초
-
 ## Variable
 
 ### let, const
