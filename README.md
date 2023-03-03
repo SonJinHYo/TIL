@@ -32,7 +32,7 @@ _47 TILs and counting..._
 - [인공지능 모델 배포 - AWS - 클라우드 기초](Cloud/Basic.md)
 
 ### [ES6](#ES6)
-- [JS 기초](ES6/js_basic.md)
+- [# Variable](ES6/js_basic.md)
 
 ### [Flask](#Flask)
 - [플라스크 GET,POST,DELETE 이용해서 간단 CRUD구현](Flask/flask_prac1.md)
