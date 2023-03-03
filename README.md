@@ -4,7 +4,7 @@
 Today I Learned
 
 
-_46 TILs and counting..._
+_47 TILs and counting..._
 
 ---
 
@@ -12,6 +12,7 @@ _46 TILs and counting..._
 
 - [CS_Basic](#CS_Basic)
 - [Cloud](#Cloud)
+- [ES6](#ES6)
 - [Flask](#Flask)
 - [Kaggle_Note](#Kaggle_Note)
 - [ML_DL](#ML_DL)
@@ -29,6 +30,9 @@ _46 TILs and counting..._
 
 ### [Cloud](#Cloud)
 - [인공지능 모델 배포 - AWS - 클라우드 기초](Cloud/Basic.md)
+
+### [ES6](#ES6)
+- [JS 기초](ES6/js_basic.md)
 
 ### [Flask](#Flask)
 - [플라스크 GET,POST,DELETE 이용해서 간단 CRUD구현](Flask/flask_prac1.md)
