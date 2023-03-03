@@ -4,7 +4,7 @@
 Today I Learned
 
 
-_48 TILs and counting..._
+_49 TILs and counting..._
 
 ---
 
@@ -34,6 +34,7 @@ _48 TILs and counting..._
 ### [ES6](#ES6)
 - [# Variable](ES6/js_basic.md)
 - [# String](ES6/js_basic2.md)
+- [# Array](ES6/js_basic3.md)
 
 ### [Flask](#Flask)
 - [플라스크 GET,POST,DELETE 이용해서 간단 CRUD구현](Flask/flask_prac1.md)
