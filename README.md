@@ -4,7 +4,7 @@
 Today I Learned
 
 
-_53 TILs and counting..._
+_54 TILs and counting..._
 
 ---
 
@@ -39,6 +39,7 @@ _53 TILs and counting..._
 - [# Rest and Spread](ES6/js_basic5.md)
 - [# For of Loop](ES6/js_basic6.md)
 - [# Promises](ES6/js_basic7.md)
+- [# Async Await](ES6/js_basic8.md)
 
 ### [Flask](#Flask)
 - [플라스크 GET,POST,DELETE 이용해서 간단 CRUD구현](Flask/flask_prac1.md)
