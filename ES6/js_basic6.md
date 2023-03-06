@@ -1,5 +1,3 @@
-
-
 ## For of Loop
 
 ```js
