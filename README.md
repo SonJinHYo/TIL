@@ -37,7 +37,7 @@ _53 TILs and counting..._
 - [# Array](ES6/js_basic3.md)
 - [# Destructuring](ES6/js_basic4.md)
 - [# Rest and Spread](ES6/js_basic5.md)
-- [](ES6/js_basic6.md)
+- [# For of Loop](ES6/js_basic6.md)
 - [# Promises](ES6/js_basic7.md)
 
 ### [Flask](#Flask)
