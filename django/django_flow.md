@@ -11,6 +11,7 @@ django flow
 
 ## 주의사항
 
+- 인터프리터 설정 해줄것
 - AWS EC2의 poetry는 최신 버전에서 좀 멀고 업데이트가 까다롭다. AWS를 통해 시작하려면 처음부터 AWS 환경에서 시작할 것
 
 ## `django-admin` 주 명령어
@@ -30,6 +31,8 @@ django flow
 - `createsuperuser` : 관리자 계정 생성
 - `startapp <app name>` : `app name`의 이름을 가지는 app폴더 생성
   - 이후 `settings.py`의 `INSTALLED_APPS`에 app폴더/apps.py의 첫 클래스 이름을 추가
+
+
 
 
 
@@ -55,6 +58,7 @@ class House(models.Model):
     )
     price = models.PositiveIntegerField()
     rooms = models.PositiveIntegerField()
+    host = models.ForeginKey("users.User",on_delete=models.CASCADE)
     
     def __str__(self):
         # 해당 객체의 이름 표현
@@ -67,21 +71,153 @@ class House(models.Model):
 - `PositiveIntegerField()` 
 - `TextField()` : 많은 양의 텍스트를 쓸 수 있는 입력란
 - `BooleanFiled(default=)`
-- `DateField()` : 날짜 입력
-- `DateTimeField`: 날짜와 시간
+- `DateField()`,`DateTimeField()` : 날짜/날짜와시간 입력
+  - argument로 `auto_now=True` / `auto_now_add=True`를 주로 사용 : object가 **최초 저장시에만/저장될 때마다** 필드값 갱신.
 - `EmailField()` : 이메일
 - `ImageField,URLfield,...`
+- `ManyToManyField("object")` : 두 테이블간의 다대다 관계를 관리해주는 중간테이블 생성.
+  - 특징
+    - `_set`을 이용한 역참조가 가능하다. `room3.user_set.all()` : room3를 예약한 모든 사람.
+      - 역참조 이름을 설정해줄수 있다. `ManyToManyField(..., related_name = 'users')`. (user_set이 아닌 users로 역참조 가능)
+    - 데이터 추가/쿼리가 양쪽에서 가능. (위에선 House에만 필드를 추가했지만 users 모델에서 House를 부를 수 있게 된다)
+
+
 
 #### Field Parameter(default value) https://docs.djangoproject.com/ko/4.1/ref/models/fields/
 
-- `null=False`  : True시 빈 값은 모두 null 값이 된다
-- `blank=False` :  빈 칸을 허용한다
+- `null=False`  : True시 빈 값은 모두 null 값이 된다. (null 값을 허용한다.)
+
+- `blank=False` :  빈 칸을 허용한다.(필수적이지 않도록 한다.)
+
 - `default=` : default값 설정
+
 - `editable=True` : False 일 때, 수정이 불가능하면 관리 패널에서 사라짐
+
 - `help_text=` : 해당 필드의 부가설명을 추가한다.
+
 - `verbose_name=` : 설정한 이름으로 필드 이름을 설정. default로는 django가 자동으로 필드 이름에 맞게 생성
 
+- `choices=<ChoicesClass>`  : 보기 중 고를 수 있도록 설정
 
+  - ```python
+    class User(AbstractUser):
+    	class GenderChoices(models.TextChoices):
+            # 튜플의 첫 원소는 db의 value, 두 번쨰는 관리자페이지의 label
+            MALE = ("male","Male")
+            FEMALE = ("female","Female")
+    
+            gender = models.CharField(max_length=10,choices = GenderChoices)
+    ```
+
+#### ForeginKey(object, on_delete=)
+
+- 해당 모델의 id를 부여.
+- object에는 model class 위치를 넣는다.
+  - 단, 커스텀 유저 모델을 넣을 시, `"users.User"` 보다는 `settings`를 불러와서 `settings.AUTH_USER_MODEL` 이 권장된다.
+    1. 유저 모델이 바뀔 수 있으니까
+    2. `settings `불러오기 : `from django.contrib import settings`
+- on_delete : id 객체 삭제시 데이터 처리
+  - `on_delete = models.CASCADE` : id 객체 삭제 시 해당 모델 객체도 삭제. (ex. 유저 삭제 시 프로필 사진)
+  - `on_delete = models.SET_NULL ` : id 객체 삭제 시 객체를 null로 대체 (ex. 유저 삭제 시 결제 내역)
+
+
+
+#### 주의사항
+
+- 모든 model은 `pk`(Primary Key)를 **선언하지 않아도 가지고 있다.** column type은 `Foregin Key`이므로 **정수와 착각X**
+- 기존 db가 존재하는 상태에서 새로운 Field를 추가할 시, 터미널에 다음 에러가 나타날 수 있다.
+  - It is impossible to add a  non-nullable field 'field_name' to user without specifying a default. This is because the database needs something to populate existing rows. Please select a fix: (기존 값에 이 필드를 추가할 시 어떻게 추가할 것인가. 이 문구는 booleanField는 null값을 기본으로 할 수 없다는 뜻)
+    1. Provide a one-off default now (will be set on all existing rows with a null value for this columns) (일회성 값을 추가한다. null값으로 돌아가게 된다.)
+    2. Quit and manually define a default value in models.py (멈추고 models.py에서 deefault값을 설정한다)
+
+
+
+### Custom User Model
+
+django에서 기본 모델을 제공. 단, 커스터마이징을 적극 권장. **반드시 프로젝트 초반에 할 것**
+
+#### User Model Customizing https://docs.djangoproject.com/ko/4.1/topics/auth/customizing/#extending-the-existing-user-model
+
+1. `python manage.py startapp users` : 새로운 User App 생성
+
+2. users/models.py 로 가서,
+
+   ```python
+   from django.contrib.auth.models import AbstractUser
+   
+   class User(AbstractUser):
+       """
+       사용법 : AbstactUser로 가서 필요한 property를 그대로 가져온다.
+       """
+       pass
+   ```
+
+3. `settings.py ` 에 다음 내용 추가
+
+   ```python
+   .
+   .
+   # users app 등록
+   INSTALLED_APPS = [...,
+                     users.apps.UserConfig,]
+   .
+   .
+   # 맨 끝에 커스텀 유저모델 선언
+   # Auth
+   AUTH_USER_MODEL = "users.User" # User 클래스 위치
+   ```
+
+4. `python manage.py makemigrations` , `python manage.py migrate` 실행 : DB에 등록
+
+5. `users/admin.py` 에서 관리자 클래스 추가 : 다른 앱과는 다르게 상속받은 클래스를 관리하므로 차이가 있다.
+
+   ```python
+   from django.contrib.auth.admin import UserAdmin
+   from .models import User
+   
+   @admin.register(User)
+   class CustomUserAdmin(UserAdmin):
+       """
+       사용법 : UserAdmin으로 가서 필요한 property를 그대로 가져온다. https://docs.djangoproject.com/en/4.1/ref/contrib/admin
+       """
+       # fieldsets : model의 field가 보이는 순서 설정. 
+       fieldsets = (
+           (
+               "Profile", # 이름대신 None을 선언하면 큰 Section이 없어짐
+               {
+                   "fields":("username","password","email",), # User properties
+                   "classes": ( # 문서 참조
+                       "collapse", # 숨김 버튼 제공
+                       "wide", # 더 넓게 펴기
+                   )
+               }
+           )
+       )
+       
+       #list_display : 사용자 list를 표시할 때 보이는 column 설정
+       list_display = ("username","email","gender",)
+   ```
+
+
+
+### Common Model
+
+- 많은 모델이 공통필드를 가질 때 선언해두면 편하다.
+
+- ```python
+  # common app 선언 후 common models.py
+  from django.db import models
+  
+  class CommonModel(models.Model):
+      created_at = models.DateTimeField(auto_now_add = True)
+  	updated_at = models.DateTimeField(auto_now = True)
+      
+      # DB에 추가하지 않는 추상클래스임을 선언
+      class Meta:
+          abstact = True
+  ```
+
+- 이후 CommonModel을 상속
 
 ## admin.py
 
