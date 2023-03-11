@@ -31,6 +31,7 @@ django flow
 - `createsuperuser` : 관리자 계정 생성
 - `startapp <app name>` : `app name`의 이름을 가지는 app폴더 생성
   - 이후 `settings.py`의 `INSTALLED_APPS`에 app폴더/apps.py의 첫 클래스 이름을 추가
+- `shell` : 터미널에 django를 구성. (settings.py를 가져온다)
 
 
 
@@ -150,6 +151,10 @@ django에서 기본 모델을 제공. 단, 커스터마이징을 적극 권장. 
        사용법 : AbstactUser로 가서 필요한 property를 그대로 가져온다.
        """
        pass
+   
+   	## 클래스 복수형 표현 수정 (or 다른 이름)
+       class Meta:
+           verbose_name_plural = "복수형/다른 이름"
    ```
 
 3. `settings.py ` 에 다음 내용 추가
@@ -215,6 +220,7 @@ django에서 기본 모델을 제공. 단, 커스터마이징을 적극 권장. 
       # DB에 추가하지 않는 추상클래스임을 선언
       class Meta:
           abstact = True
+          
   ```
 
 - 이후 CommonModel을 상속
@@ -232,10 +238,17 @@ class HouseAdmin(admin.ModelAdmin):
     list_display = ("name","price","rooms",)
     list_filter = ("price","city",)
     
+    def some_method(self,house):
+        # 두번째 원소로 house를 넣으면 House 모델의 각 객체를 room으로 받게 된다.
+        pass
+    
+    
 ```
 
 - `list_display = (model의 properties)` : 관리창에 관리모델의 미리보기를 입력에 맞게 보여준다.
 - `list_filter = (model의 properties)` : 관리창 측면에 필터 생성. 입력에 맞게 필터를 생성한다.
+  - property를 탐색할 때 순서
+    - admin class 내부 property->  관리 model property -> 관리 모델 method
 - `search_fields = (model의 properties)` : 검색창 생성
   - ex) `search_fields = (address,price)` : 검색창에 입력시 address와 price를 기준으로 입력값이 **포함된**  모든 것을 검색
   - properties 뒤에 두 개의 언더바를 붙여서 옵션 설정 가능
@@ -248,6 +261,23 @@ class HouseAdmin(admin.ModelAdmin):
 - `fields = (model의 properties,(model의 properties),)` : 튜플로 묶어진 property는 한 칸에 같이 표현
 
 
+
+
+
+
+
+## apps.py
+
+### 패널상의 앱 이름 변경
+
+apps.py에서
+
+```python
+class <ClassNameConfig>(AppConfig):
+    ...
+    # verbose_name 추가
+    verbose_name = "앱 이름"
+```
 
 
 
