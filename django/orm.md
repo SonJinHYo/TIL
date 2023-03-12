@@ -26,6 +26,21 @@ QuerySet에 관한 django docs : https://docs.djangoproject.com/ko/4.1/ref/model
 - `room.count()` : 객체 갯수 반환
 - 등등 문서 참고
 
+##### 주의사항 (최적화)
+
+```python
+for room in Room.objects.all():
+    # 이 떄 room은 QuerySet 이므로 room의 필요한 값은 다음과 같이 호출
+    options = room.value['options'] # room의 options가 필요할 때
+    print(option)
+    
+### db소통 최적화. 위와는 다르게 옵션'만' 가져옴
+for option in Room.objects.all().values("options"):
+    print(option)
+```
+
+
+
 
 
 ### lookup
