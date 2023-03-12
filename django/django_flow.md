@@ -2,7 +2,7 @@ django flow
 
 
 
-# 환경
+# 환경 (poetry)
 
 1. `poetry init` : 가상환경 설정. `pyproject.toml`, `poetry.lock `파일을 생성하여 라이브러리 관린
 2. `poetry shell ` 
@@ -74,13 +74,16 @@ class House(models.Model):
 - `BooleanFiled(default=)`
 - `DateField()`,`DateTimeField()` : 날짜/날짜와시간 입력
   - argument로 `auto_now=True` / `auto_now_add=True`를 주로 사용 : object가 **최초 저장시에만/저장될 때마다** 필드값 갱신.
+
 - `EmailField()` : 이메일
 - `ImageField,URLfield,...`
 - `ManyToManyField("object")` : 두 테이블간의 다대다 관계를 관리해주는 중간테이블 생성.
   - 특징
     - `_set`을 이용한 역참조가 가능하다. `room3.user_set.all()` : room3를 예약한 모든 사람.
       - 역참조 이름을 설정해줄수 있다. `ManyToManyField(..., related_name = 'users')`. (user_set이 아닌 users로 역참조 가능)
+
     - 데이터 추가/쿼리가 양쪽에서 가능. (위에선 House에만 필드를 추가했지만 users 모델에서 House를 부를 수 있게 된다)
+
 
 
 
@@ -109,6 +112,7 @@ class House(models.Model):
     
             gender = models.CharField(max_length=10,choices = GenderChoices)
     ```
+
 
 #### ForeginKey(object, on_delete=)
 
@@ -235,11 +239,11 @@ from .models import House
 
 @admin.register(House) # House class를 관리하는 class
 class HouseAdmin(admin.ModelAdmin):
-    list_display = ("name","price","rooms",)
+    list_display = ("name","price","rooms","some_method")
     list_filter = ("price","city",)
     
     def some_method(self,house):
-        # 두번째 원소로 house를 넣으면 House 모델의 각 객체를 room으로 받게 된다.
+        # 두번째 원소로 house를 넣으면 House 모델의 각 객체를 house으로 받게 된다.
         pass
     
     
@@ -249,6 +253,7 @@ class HouseAdmin(admin.ModelAdmin):
 - `list_filter = (model의 properties)` : 관리창 측면에 필터 생성. 입력에 맞게 필터를 생성한다.
   - property를 탐색할 때 순서
     - admin class 내부 property->  관리 model property -> 관리 모델 method
+
 - `search_fields = (model의 properties)` : 검색창 생성
   - ex) `search_fields = (address,price)` : 검색창에 입력시 address와 price를 기준으로 입력값이 **포함된**  모든 것을 검색
   - properties 뒤에 두 개의 언더바를 붙여서 옵션 설정 가능
@@ -262,9 +267,30 @@ class HouseAdmin(admin.ModelAdmin):
 
 
 
+### Admin Actions
 
-
-
+ ```python
+  # 1. admin.py 파일 내에서 액션함수 선언
+  
+  @admin.actions(description = "패널에서 액션 설명 문구")
+  def reset_prices(model_admin, request, queryset):
+      """
+      model_admin : 액션을 가진 admin모델
+      request : 요청 정보 (user 정보 포함)
+      queryset : 선택 요소. (room을 선택할 상황일 때, rooms로 이름을 지정하면 편함)
+      """
+  	# 가격 리셋
+      for room in rooms.all():
+          room.price = 0
+          room.save()
+            
+            
+@admin.register(Room)
+class RoomAdmin(admin.ModelAdmin):
+    
+    # 2. action 추가
+    actions = (reset_price,)
+ ```
 
 ## apps.py
 
