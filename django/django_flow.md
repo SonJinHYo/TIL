@@ -307,3 +307,59 @@ class <ClassNameConfig>(AppConfig):
 
 
 
+## views.py / urls.py
+
+### 기본 함수
+
+- `path("url",func)` : "url"을 요청받으면 func를 실행. `from django.urls`
+- `include("앱url")` : 경로를 해당 앱의 urls에서 찾도록 이어주는 django 함수  . `from django.urls`
+- `render(request,template_name,{key: value})` : 받은 request가 첫 인자, template가 두번째 인자, 딕셔너리 형태로 넘길 파라미터를 세번째 인자로 사용.
+  -   `from django.shortcut`
+  - 넘겨받은 파라미터는 key를 사용하고 value로 출력
+
+```python
+# config/ views.py 파일
+from django.urls import path
+
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("rooms/", include("rooms.urls")),    
+]
+```
+
+### apps/urls.py 추가
+
+ex . `rooms/1/photo` 경로를 추가할 때,
+
+1. `config/urls.py`에 `path("rooms/",include("rooms.urls"))` 추가 (rooms 앱일 경우)
+2. `rooms`폴더에 `urls.py` 추가
+3. `urlpatterns = [..., path("<int>/photo",function),]`
+   - function은 대체로 views에서 가져온다. `from . import views`
+
+
+
+### URL_Args
+
+`rooms/<arg_type: arg_name>` :  URL에서 꺽쇠에 해당하는 위치의 문자는 arg_type으로 받아서 arg_name으로 사용. 
+
+- arg는 함수의 인자로 받게된다. 
+- arg가 여러 개라면 입력순으로 함수가 받는다.
+
+- ex . `path("rooms/<int:room_id>", views.see_one_room`)  
+  - 이 때 views.py의 see_one_room 함수 : `def see_one_room(request,room_id)`
+
+
+
+### templates
+
+django는 render을 통해 template를 찾을 때, 자동으로 `templates`폴더를 찾아 그 내부의 파일을 탐색
+
+django_docs : https://docs.djangoproject.com/ko/4.1/topics/templates/
+
+
+
+
+
+### 주의사항
+
+같은 폴더 내의 파일을 import 할 때, `import views ` 를 하면 에러, `from . import views`로 해야 에러가 안난다.
