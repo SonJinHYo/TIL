@@ -66,7 +66,9 @@ class House(models.Model):
         return self.name
 ```
 
-### 상용 Field(essential_param=) https://docs.djangoproject.com/ko/4.1/ref/models/fields/#field-types
+### 상용 Field(essential_param=) 
+
+django docs : https://docs.djangoproject.com/ko/4.1/ref/models/fields/#field-types
 
 - `CharField(max_length=)` : 짧은 크기의 문자열 입력란
 - `PositiveIntegerField()` 
@@ -86,8 +88,9 @@ class House(models.Model):
 
 
 
+#### Field Parameter(default value) 
 
-#### Field Parameter(default value) https://docs.djangoproject.com/ko/4.1/ref/models/fields/
+django docs : https://docs.djangoproject.com/ko/4.1/ref/models/fields/
 
 - `null=False`  : True시 빈 값은 모두 null 값이 된다. (null 값을 허용한다.)
 
@@ -141,7 +144,9 @@ class House(models.Model):
 
 django에서 기본 모델을 제공. 단, 커스터마이징을 적극 권장. **반드시 프로젝트 초반에 할 것**
 
-#### User Model Customizing https://docs.djangoproject.com/ko/4.1/topics/auth/customizing/#extending-the-existing-user-model
+#### User Model Customizing
+
+django docs : https://docs.djangoproject.com/ko/4.1/topics/auth/customizing/#extending-the-existing-user-model
 
 1. `python manage.py startapp users` : 새로운 User App 생성
 
@@ -231,7 +236,9 @@ django에서 기본 모델을 제공. 단, 커스터마이징을 적극 권장. 
 
 ## admin.py
 
-### 해당 앱 관리자 등록 https://docs.djangoproject.com/ko/4.1/ref/contrib/admin/
+### 해당 앱 관리자 등록
+
+django docs : https://docs.djangoproject.com/ko/4.1/ref/contrib/admin/
 
 ```python
 from django.contrib import admin
@@ -315,7 +322,7 @@ class <ClassNameConfig>(AppConfig):
 - `include("앱url")` : 경로를 해당 앱의 urls에서 찾도록 이어주는 django 함수  . `from django.urls`
 - `render(request,template_name,{key: value})` : 받은 request가 첫 인자, template가 두번째 인자, 딕셔너리 형태로 넘길 파라미터를 세번째 인자로 사용.
   -   `from django.shortcut`
-  - 넘겨받은 파라미터는 key를 사용하고 value로 출력
+  -   넘겨받은 파라미터는 key를 사용하고 value로 출력
 
 ```python
 # config/ views.py 파일
@@ -323,18 +330,34 @@ from django.urls import path
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("rooms/", include("rooms.urls")),    
+    path("api/v1/rooms/", include("rooms.urls")),
 ]
 ```
 
 ### apps/urls.py 추가
 
-ex . `rooms/1/photo` 경로를 추가할 때,
+ex . `api/v1/rooms/1/photo` 경로를 추가할 때,
 
-1. `config/urls.py`에 `path("rooms/",include("rooms.urls"))` 추가 (rooms 앱일 경우)
+1. `config/urls.py`에 `path("api/v1/rooms/",include("rooms.urls"))` 추가 (rooms 앱일 경우)
 2. `rooms`폴더에 `urls.py` 추가
 3. `urlpatterns = [..., path("<int>/photo",function),]`
    - function은 대체로 views에서 가져온다. `from . import views`
+
+###### `api/v1/` 명시 이유
+
+- `admin`페이지와 같이 서버 내부의 url로 착각하기 쉽다.
+- 버전 관리가 쉽다. 업데이트된 새로운 버전이 나온다면 `api/v2/rooms`를 추가해주면 된다.
+
+```python
+# rooms/ views.py 파일
+
+from django.urls import path
+from . import views  # DRF 참조
+
+urlpatterns = [
+	path("<int>/photo",views.RoomPhotos.as_view()),
+]
+```
 
 
 
