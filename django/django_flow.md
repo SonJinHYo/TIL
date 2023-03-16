@@ -314,7 +314,9 @@ class <ClassNameConfig>(AppConfig):
 
 
 
-## views.py / urls.py
+## views.py / urls.py / serializers.py
+
+참고 (DRF) : https://github.com/SonJinHYo/TIL/blob/main/django/drf.md
 
 ### 기본 함수
 
