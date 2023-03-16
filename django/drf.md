@@ -119,6 +119,27 @@ class Categories(APIView): # 모델은 단수/ 뷰는 복수형으로 명명
        
 ```
 
+- `POST`할 때 유저확인
+
+  ```python
+      def post(self,request,pk):
+          if request.user.is_authenticated: # 유저 인증이 됐다면
+              serializer = CategorySerializer(data=request.data) 
+              if serializer.is_valid(): 
+                  new_category = serializer.save() 
+                  return Response(
+                      CategorySerializer(new_category).data,
+                  )
+              else:
+                  return Response(serializer.errors)
+          else: # 아닐시 
+  			raise exception.NotAutenticated
+  ```
+
+  
+
+
+
 
 
 ### example(ViewSet)
@@ -162,9 +183,9 @@ urlpatterns = [
   - serializer : QuerySet을 브라우저가 이해할 수 있는 JSON/ JSONL/ XML/ YAML 포맷으로 바꿔주는 번역기 역할
     - post와 같은 반대 상황에서도 적용
 
-## Class
+### Class
 
-- `serializers.Serializer`: serializers.py 클래스의 상속클래스.  `from rest_framework import serializers`
+- `ModelSerializer`: serializers.py 클래스의 상속클래스.  `from rest_framework.serializers`
   - ex. `class CategorySerializer(serializers.Serializer):`
 
 
@@ -172,7 +193,9 @@ urlpatterns = [
 ### example
 
 ```python
-class CategorySerializer(serializers.Serializer):
+from rest_framework.serializers import ModelSerializer
+
+class CategorySerializer(ModelSerialzier):
     """
     Category의 Field중 보여줄 부분 명시. Category의 필드를 
     Category가 어떻게 JSON으로 변환될 지 커스텀
@@ -182,6 +205,44 @@ class CategorySerializer(serializers.Serializer):
         fields = "__all__" # 모든 필드 보이기
         fields = ("properties") # 일부 필드 보이기
         exclude = ("properties") # 일부 필드 제외
-    
 ```
 
+
+
+### 관계확장 (Serializer 내의 Serializer)
+
+```python
+from users.serializers import TinyUserSerializer
+
+class CategorySerializer(serializers.Serializer):
+    
+    # 권장O
+    """
+    owner 필드를 가져올 때 커스텀한 TinyUserSerializer(간단유저정보)을 참조
+    단, Category를 POST할 때, TinyUserSerializer를 필요로 해선 안되므로 read_only=True 추가
+    """
+    owner = TinyUserSerialzer(read_only=True)
+    
+    class Meta: 
+        model = Category
+        fields = "__all__"
+        
+        # 권장X
+        depth = 1 # 필드의 모든 데이터를 출력
+```
+
+#### GET에선 Custom Serializer, POST시 request.data 받기 (ex. owner ㅍ)
+
+1. 
+2. `serializer = CategorySerializer(data=request.data)` 
+
+3. 이후 save시, `category = serializer.save(owner = request.user)` 으로 추가
+
+
+
+### 주의사항
+
+Serializer은 대부분 한 객체의 데이터를 표현한다. 여러 객체를 받게될 시 `Serializer(many=True)`를 추가
+
+- ex. `member = MemberSerializer(many=True)` : 어떤 Serializer 클래스가 member 필드를 가질 때, 멤버가 두 명 이상일 수 있으므로.
+- 코드에 이상이 없음에도 DRF 페이지에서 `null` 값이 등장한다면 `many` 여부를 확인
