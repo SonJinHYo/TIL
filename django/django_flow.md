@@ -35,6 +35,14 @@ django flow
 
 
 
+## settings.py
+
+- 한국 맞춤
+  - `LANGUAGE_CODE = "ko-kr"`
+  - `TIME_ZONE = "Asia/Seoul"`
+- env 폴더 설정
+  1. `settings.py`의 상위 폴더 위치에 `.env` 파일 생성
+  2. 
 
 
 # APP
@@ -127,6 +135,12 @@ django docs : https://docs.djangoproject.com/ko/4.1/ref/models/fields/
 - on_delete : id 객체 삭제시 데이터 처리
   - `on_delete = models.CASCADE` : id 객체 삭제 시 해당 모델 객체도 삭제. (ex. 유저 삭제 시 프로필 사진)
   - `on_delete = models.SET_NULL ` : id 객체 삭제 시 객체를 null로 대체 (ex. 유저 삭제 시 결제 내역)
+- `related_name` : 역참조시 이름 명명
+  - 관행적으로 모델명의 복수형으로 사용 
+    - ex. 모델명(참조모델X)이 `Tweet` 이면 `related_name="tweets"`
+
+  - 없을경우 자동으로 `모델명_set`의 역참조 쿼리 생성
+
 
 
 
@@ -271,6 +285,52 @@ class HouseAdmin(admin.ModelAdmin):
 - `exclude = (model의 properties)` : 해당 property 제외
 
 - `fields = (model의 properties,(model의 properties),)` : 튜플로 묶어진 property는 한 칸에 같이 표현
+
+
+
+### Custom FIlter
+
+```python
+# 항상 looksup, queryset 2개의 함수를 가져야한다.
+class WordFilter(admin.SimpleListFilter):
+
+    title = "Filter by words!"
+
+    parameter_name = "word"
+
+    def lookups(self, request, model_admin):
+        # 커스텀 필터는 튜플리스트를 반환값으로 가진다
+        return [
+            # 튜플의 원소 : (url에 나타나는 값, admin 패널에 보여지는 값)
+            ("good", "Good"),
+            ("great", "Great"),
+            ("awesome", "Awesome"),
+        ]
+
+	# 필터링을 거친 값을 반환	
+    def queryset(self, request, reviews):
+        word = self.value()
+        if word:
+            return reviews.filter(payload__contains=word)
+        else:
+            reviews
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "__str__",
+        "payload",
+    )
+    
+    list_filter = (
+        WordFilter,
+        "rating",
+        "user__is_host",
+    )
+```
+
+
 
 
 
