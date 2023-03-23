@@ -1,4 +1,4 @@
-django flow
+django 정리 및 코드템플릿
 
 
 
