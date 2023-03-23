@@ -39,14 +39,59 @@ DRF
 ### Functions
 
 - `JsonResponse(dictionary)` : Json 응답을 위한 함수.  `from django.http`
+
 - `serializers.serialize("json",queryset)` :  queryset을 해당 포맷으로 바꿔준다. "json/xml/jsonl/yaml" `from django.core`
+
   - serializers.py를 사용하지 않는 상황에서 주로 사용. 권장X
+
 - `Response` : DRF에서 제공하는 response 함수. `from rest_framework.response`
+
 - `api_view` : DRF에서 제공하는 **decorator**.  `from rest_framework.decorator`
+
 - `exceptions `: 여러가지 에러 반환. `from rest_framework`
+
   - ex. `raise exceptions.NotFound `
+
 - `status` : 여러가지 HTTP status 반환. `from rest_framework`
+
   - ex. `Response(status=status.HTTP_204_NO_CONTENT)`
+
+- `transaction` : 에러시 쿼리와 db상태를 롤백. `from django.db`
+
+  - 배경
+
+    - django는 기본적으로 모든 쿼리를 db에 즉시 적용한다.
+    - 쿼리를 생성하거나 수정할 때, 중간에 에러가 난다면 이전 수정사항을 수동으로 되돌려야 한다.
+      - 수동 자체도 번거롭지만 pk, id의 낭비가 심해진다.
+
+  - 작동방식
+
+    1.  포함된 내용의 코드를 즉시 적용하지 않고 변경사항을 탐색
+    2.  변경사항들을 리스트로 만듦
+    3.  에러가 없다면 db에 push. 에러가 발생한다면 push하지 않는다.
+        - ` transaction` 내에 `try-except`구문이 없어야 하는 이유. 에러 발생시 except 단계에서 에러가 제외됨.
+
+  - ex. (`try-except` 구문으로 감싸지 않아도 작동은 같다. **감싸주는 편이 에러 파악에 용이**)
+
+    ```python
+    	try:
+    		with transaction.atomic():
+            	room = serialzer.sava(
+                    owner = request.user,
+                    category = category,
+                	)
+                options = request.data.get("options")
+                
+                for option_pk in options: # 위에서 데이터를 저장했지만 options의 데이터 상태나 내용물에서 에러가 날 수 있다.
+                    pass
+                
+                return Response(serializer.data,status="~~")
+        except Exception:
+            raise ParseError("Option Not Found")
+    ```
+
+    
+
 
 ### Class
 
@@ -96,7 +141,7 @@ class Categories(APIView): # 모델은 단수/ 뷰는 복수형으로 명명
                 CategorySerializer(new_category).data, # JSON으로 반환
             )
         else:
-            return Response(serializer.errors) # 적합한 데이터가 아니라면 에러 반환
+            return Response(serializer.errors,status = "status 추가") # 적합한 데이터가 아니라면 에러 반환
     
     
 	def put(self,request,pk): 
@@ -110,7 +155,7 @@ class Categories(APIView): # 모델은 단수/ 뷰는 복수형으로 명명
             updated_category = serializer.save()
             return Response(CategorySerializer(updated_category).data)
         else:
-            return Response(serializer.errors)
+            return Response(serializer.errors,status = "status 추가")
         
         
 	def delete(self, request, pk):
@@ -119,28 +164,51 @@ class Categories(APIView): # 모델은 단수/ 뷰는 복수형으로 명명
        
 ```
 
-- `POST`할 때 유저확인
+##### `POST, DELETE, PUT`할 때 유저확인
 
-  ```python
-      def post(self,request,pk):
-          if request.user.is_authenticated: # 유저 인증이 됐다면
-              serializer = CategorySerializer(data=request.data) 
-              if serializer.is_valid(): 
-                  new_category = serializer.save() 
-                  return Response(
-                      CategorySerializer(new_category).data,
-                  )
-              else:
-                  return Response(serializer.errors)
-          else: # 아닐시 
-  			raise exception.NotAutenticated
-  ```
+```python
+# 직접 쓰기 (권장X)
+	def post(self,request,pk):
+        if request.user.is_authenticated: # 유저 인증이 됐다면
+            serializer = CategorySerializer(data=request.data) 
+            if serializer.is_valid(): 
+                new_category = serializer.save() 
+                return Response(
+                    CategorySerializer(new_category).data,
+                )
+            else:
+                return Response(serializer.errors)
+        else: # 아닐시 
+			raise exceptions.NotAutenticated
+	
+  	def delete(self, request, pk):
+        obj = self.get_object(pk)
+        if not request.user.is_authenticated: # 유저 인증과
+            raise exceptions.NotAutenticated
+        if room.owner != request.user:	# 소유자 여부. PUT일 때도 이 2가지 체크
+            raise exceptions.PermissionDenied
+		obj.delete()
+        return Response("data",status=HTTP_204_NO_CONTENT)    
+```
 
-  
+```python
+# permission_classes 사용 (권장O)
+from rest_framework.permisstions import IsAuthenticated
 
+class Categories(APIView):
+	permission_classes = [IsAuthenticated]
+    
+    
+from rest_framework.decorators import permission_classes
 
+# api_view에서의 사용
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def example_view(request, format=None):
+    pass
+```
 
-
+- permission_classes 종류 (DRF docs) : https://www.django-rest-framework.org/api-guide/permissions/#api-reference
 
 ### example(ViewSet)
 
@@ -195,7 +263,7 @@ urlpatterns = [
 ```python
 from rest_framework.serializers import ModelSerializer
 
-class CategorySerializer(ModelSerialzier):
+class CategorySerializer(ModelSerializer):
     """
     Category의 Field중 보여줄 부분 명시. Category의 필드를 
     Category가 어떻게 JSON으로 변환될 지 커스텀
@@ -231,12 +299,152 @@ class CategorySerializer(serializers.Serializer):
         depth = 1 # 필드의 모든 데이터를 출력
 ```
 
-#### GET에선 Custom Serializer, POST시 request.data 받기 (ex. owner ㅍ)
+#### 특정 필드를 GET에선 Custom Serializer, POST에선 request.data 받기 (ex. owner 필드)
 
-1. 
-2. `serializer = CategorySerializer(data=request.data)` 
+1. `serializer = CategorySerializer(data=request.data)` 
 
-3. 이후 save시, `category = serializer.save(owner = request.user)` 으로 추가
+2. 이후 save시, `category = serializer.save(owner = request.user)` 으로 추가
+
+
+
+### SerializerMethodField
+
+#### 함수의 결과를 Serializer에서 사용하는 법
+
+1.  Serializer 모델클래스 내에서 `SerializerMethodField` 선언. `rating = seializers.SerializerMethodField()`
+2.  Serializer 모델클래스 내에서 함수 선언.  **이 때 반드시 get_함수명 으로 명명하고, 함수명은 변수와 같아야한다.** `def get_rating(self,object):`
+    - args : self, object(해당 객체를 받는다.
+
+
+
+### Serializer Context
+
+- Serializer의 인자에 `context = {}`를 넣어서 추가적인 내용을 전달할 수 있다
+- ex. `serializer = CategorySerializer(catergory,context = {"pet_name":"pupu"})`
+  - 이후 Serializer 클래스에서 `self.context`로 접근이 가능
+- **requset를 그대로 전할 때 주로 사용**. `context = {"request":request}`
+
+
+
+### Pagination
+
+#### 역접근자의 위험성
+
+- 역접근하는 모델의 모든 데이터를 가져올 때, 너무 많은 양의 데이터를 한번에 불러올 수 있음 -> Pagination 필요
+
+#### Pagination 설정
+
+1. Pagination은 전체페이지에 적용하는 설정이므로 `settings.py`에 설정
+
+   - `PAGE_SIZE = 5` 줄 추가 후 view 클래스에 적용. (`from django.conf import settings`)
+
+2. ```python
+   from django.conf import settings
+   
+   class RoomReviews(APIView):
+       def get_object(self, pk):
+           try:
+               return Room.objects.get(pk=pk)
+           except Room.DoesNotExist:
+               raise NotFound
+   
+       def get(self, request, pk):
+           try:
+               # http창에 `~~?page=2`의 입력을 받는다. get의 두번째 원소는 default값
+               page = request.query_params.get("page", 1) 
+               page = int(page) # 정수 변환(기본은 str타입). 정수 입력이 아닐 경우를 대비해 try구문
+           except ValueError:
+               page = 1
+           page_size = settings.PAGE_SIZE
+           start = (page - 1) * page_size
+           end = start + page_size
+           room = self.get_object(pk)
+           serializer = ReviewSerializer(
+               room.reviews.all()[start:end], # 현재 인덱스에서 설정한 페이지까지만
+               many=True,
+           )
+           return Response(serializer.data)
+   ```
+
+
+
+### Create User
+
+```python
+""" users.serializers.py """
+class PrivateUserSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        exclude = (
+            "password",
+            "is_superuser",
+            "id",
+            "user_permissions", # 제외할 필드목록
+        )
+
+""" users/views.py """
+class Users(APIView):
+    def post(self, request):
+        password = request.data.get("password") # 입력받은 패스워드
+        if not password:
+            raise ParseError
+        serializer = serializers.PrivateUserSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            user.set_password(password)
+            user.save()
+            serializer = serializers.PrivateUserSerializer(user)
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors)
+```
+
+#### Save User Password
+
+- **틀린 방법** : `user.password = password`  (`password`는 입력받은 비밀번호)
+  - 저장하는 password는 해쉬화가 된 패스워드여야 한다.
+  - **옳은 방법** : `user.set_password(password)`
+- 현재 비밀번호 확인 방법 : `if user.check_password(now_password):`
+  - `now_password` : 입력받은 현재 패스워드. `now_password = request.data.get("now_password")`
+
+
+
+### Log In/Out
+
+```python
+class LogIn(APIView):
+    def post(self, request):
+        username = request.data.get("username")
+        password = request.data.get("password")
+        if not username or not password: # 입력 에러
+            raise ParseError
+        user = authenticate(
+            request,
+            username=username,
+            password=password,
+        )
+        if user:
+            login(request, user)
+            return Response({"ok": "Welcome!"})
+        else:
+            return Response({"error": "wrong password"})
+
+
+class LogOut(APIView):
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        logout(request)
+        return Response({"ok": "bye!"})
+```
+
+- `authenticate(request=None,**credentials)` : User 인증함수
+  - 유요한 User객체가 있다면 해당 객체를 반환. 아닐 시 None 반환
+- `login(request,user,backend=None)` : 로그인 함수
+  - django의 세션 프레임워크를 사용하여 세션에 인증된 사용자의 ID를 저장
+- `logout(request)` : 로그아웃 함수
+  - 요청한 로그인 세션에 대한 모든 데이터 삭제
 
 
 
