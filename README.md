@@ -4,7 +4,7 @@
 Today I Learned
 
 
-_54 TILs and counting..._
+_53 TILs and counting..._
 
 ---
 
@@ -97,7 +97,6 @@ _54 TILs and counting..._
 - [DRF](django/drf.md)
 - [관리자,앱 생성](django/make_app.md)
 - [ORM](django/orm.md)
-- [poetry로 django개발환경 설정하기](django/poetry_setting_venv.md)
 - [REST API](django/rest.md)
 - [terminal_code](django/terminal_code.md)
 
