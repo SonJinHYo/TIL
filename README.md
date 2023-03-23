@@ -4,7 +4,7 @@
 Today I Learned
 
 
-_55 TILs and counting..._
+_54 TILs and counting..._
 
 ---
 
@@ -94,7 +94,6 @@ _55 TILs and counting..._
 ### [django](#django)
 - [django의 python teminal로 데이터 다루기](django/django_datacontrol.md)
 - [django flow](django/django_flow.md)
-- [django 기초지식](django/django_요약.md)
 - [DRF](django/drf.md)
 - [관리자,앱 생성](django/make_app.md)
 - [ORM](django/orm.md)
