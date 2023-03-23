@@ -1,4 +1,4 @@
-## 프로그래밍 기술 질문
+## 용어 
 
 ### PNG, JPG
 #### JPG (Joint Photographic Experts Group)
