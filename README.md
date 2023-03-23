@@ -26,7 +26,7 @@ _52 TILs and counting..._
 - [github](#github)
 
 ### [CS_Basic](#CS_Basic)
-- [# 프로그래밍 기술 질문](CS_Basic/Q.md)
+- [# 용어](CS_Basic/Q.md)
 
 ### [Cloud](#Cloud)
 - [인공지능 모델 배포 - AWS - 클라우드 기초](Cloud/Basic.md)
