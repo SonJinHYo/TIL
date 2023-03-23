@@ -37,12 +37,41 @@ django flow
 
 ## settings.py
 
-- 한국 맞춤
-  - `LANGUAGE_CODE = "ko-kr"`
-  - `TIME_ZONE = "Asia/Seoul"`
-- env 폴더 설정
-  1. `settings.py`의 상위 폴더 위치에 `.env` 파일 생성
-  2. 
+#### Korea 설정
+
+- `LANGUAGE_CODE = "ko-kr"`
+- `TIME_ZONE = "Asia/Seoul"`
+
+#### 유저가 업로드한 media 파일 저장경로 설정 (개발 단계 한정 저장경로)
+
+`FileField()`를 통해 받게된 media파일에 대해 설정
+
+1. `settings.py` 내에 `MEDIA_ROOT = uploads` 추가  : `uploads` 폴더에 저장 (자동생성)
+
+2. `settings.py` 내에 `MEDIA_URL = "user-uploads/"` 추가 : 저장된 파일의 url경로
+
+   - **반드시 마지막에 slash 추가**
+
+3. `config/urls.py` 에 다음과 같이 static 추가
+
+   ```python
+   from django.conf.url.static import static
+   from django.conf import settings
+   
+   urlpatterns = [
+       ...
+   ] + static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT) # 추가 항목
+   ```
+
+**개발 단계 한정 이유** : 업로드 데이터의 문제 + 업로드 파일을 서버 디스크 공간에 할애
+
+- django는 url 경로만 알기 때문에 업로드 데이터 확인 불가
+- 서비스 단계 방식으로는 cloudflare을 이용한 이미지URL만을 받는 방식
+
+#### env 폴더 설정
+
+1. `settings.py`의 상위 폴더 위치에 `.env` 파일 생성
+2. 
 
 
 # APP
@@ -432,6 +461,31 @@ urlpatterns = [
 
 - ex . `path("rooms/<int:room_id>", views.see_one_room`)  
   - 이 때 views.py의 see_one_room 함수 : `def see_one_room(request,room_id)`
+
+#### 주의사항
+
+str타입의 변수를 받을 때는 다른 url과 겹치지 않도록 아래로 내린다
+
+```python
+# 에러 발생 : home이 들어올 경우 'username'을 home으로 받는다
+urlpatterns = [
+	path("<str:username>",views.RoomPhotos.as_view()),
+	path("home/photo",views.RoomPhotos.as_view()),
+]
+
+# 줄을 바꾸어 수정
+urlpatterns = [
+	path("home/photo",views.RoomPhotos.as_view()),
+	path("<str:username>",views.RoomPhotos.as_view()),
+]
+
+# 인스타식 방법 (이름앞 특수문자)
+urlpatterns = [
+	path("@<str:username>",views.RoomPhotos.as_view()),
+	path("home/photo",views.RoomPhotos.as_view()),
+]
+
+```
 
 
 
