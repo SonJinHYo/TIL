@@ -4,7 +4,7 @@
 Today I Learned
 
 
-_53 TILs and counting..._
+_52 TILs and counting..._
 
 ---
 
@@ -98,7 +98,6 @@ _53 TILs and counting..._
 - [관리자,앱 생성](django/make_app.md)
 - [ORM](django/orm.md)
 - [REST API](django/rest.md)
-- [terminal_code](django/terminal_code.md)
 
 ### [github](#github)
 - [Git이란, Git 시작](github/git_basic.md)
