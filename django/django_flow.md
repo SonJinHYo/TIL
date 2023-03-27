@@ -12,9 +12,7 @@ django 정리 및 코드템플릿 (메인 참고자료)
 ## 주의사항
 
 - 인터프리터 설정 해줄것
-
 - AWS EC2의 poetry는 최신 버전에서 좀 멀고 업데이트가 까다롭다. AWS를 통해 시작하려면 처음부터 AWS 환경에서 시작할 것
-
 - poetry를 인식하지 못하는 경우
 
   - 'poetry' 용어가 cmdlet, 함수, 스크립트 파일 또는 실행할 수 있는 프로그램 이름으로 인식되지 않습니다. (아래 순서로 해결)
@@ -27,7 +25,6 @@ django 정리 및 코드템플릿 (메인 참고자료)
        - ('C:\Users\사용자명\AppData\Roaming\Python\Scripts')
 
     4. 재부팅
-
 - 인식해도 찾지를 못한다 `~~지정된 모듈을 찾을 수 없습니다` : IDE를 관리자 권한으로 실행
 
 ## `django-admin` 주 명령어
@@ -87,7 +84,19 @@ django 정리 및 코드템플릿 (메인 참고자료)
 #### env 폴더 설정
 
 1. `settings.py`의 상위 폴더 위치에 `.env` 파일 생성
-2. 
+2. `.gitignore` 에 `.env` 추가
+3. `poetry add django-environ`
+4. `settings.py`에서 
+   1. `import os`/ `import environ` 추가
+   2. 가장 위쪽에 `env = environ.Env()` 추가
+   3. `BASE_DIR` 아래줄에 `environ.Env.read_env(os.path.join(BASE_DIR,".env"))` 추가
+   4. 사용예시ex. `SECRET_KEY = env("SECRET_KEY")` ( env(`.env`내의 변수명) )
+
+##### 주의사항
+
+- `.env` 폴더 내부에선 **띄어쓰기**를 하면 인식이 안된다.
+  - `SECRET_KEY="asdasad"` (O)
+  - `SECRET_KEY = "asdasd"` (X)
 
 
 # APP
