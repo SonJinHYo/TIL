@@ -134,7 +134,7 @@ class Categories(APIView): # 모델은 단수/ 뷰는 복수형으로 명명
     
     
     def post(self,request,pk):
-        serializer = CategorySerializer(data=requset.data) # 요청 정보를 받아서 serializer
+        serializer = CategorySerializer(data=request.data) # 요청 정보를 받아서 serializer
         if serializer.is_valid(): # is_valid()로 적합한 데이터 확인
             new_category = serializer.save() # 맞다면 db에 저장 후 객체로 선언
             return Response(
@@ -146,7 +146,6 @@ class Categories(APIView): # 모델은 단수/ 뷰는 복수형으로 명명
     
 	def put(self,request,pk): 
         serializer = CategorySerializer(
-            category,
             self.get_object(pk),
             data=request.data,
             partial=True, # 일부 데이터만 넣을 때 사용
@@ -454,3 +453,219 @@ Serializer은 대부분 한 객체의 데이터를 표현한다. 여러 객체�
 
 - ex. `member = MemberSerializer(many=True)` : 어떤 Serializer 클래스가 member 필드를 가질 때, 멤버가 두 명 이상일 수 있으므로.
 - 코드에 이상이 없음에도 DRF 페이지에서 `null` 값이 등장한다면 `many` 여부를 확인
+
+
+
+
+
+## Authentication
+
+views.py 의 클래스가 가지는 함수는 `(self,request)` 를 기본적으로 가지고, 이 때 `request.user` 로 user을 불러올 수 있다. 이 때 DRF는 백엔드에서 **쿠키,세션**을 보고 user을 식별 하고 그 과정에서 AUthentication 클래스가 쓰인다.
+
+
+
+### Token Authentication
+
+django 문서 : https://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication
+
+작동 방식
+
+1. 처음에 user에게 token을 주고 해당 토큰을 DB에 저장
+
+2. DEFAULT_AUTHENTICATION_CLASSES에 토큰인증이 되어있다면 자동으로 request에서 토큰을 찾아 user을 파악
+   - **APIView가 실행될 때 마다 토큰을 검색**
+
+규칙 : `headers`의 `Authorization `안에 토큰을 넣어야 한다.
+
+- `KEY : Authorization`
+- `VALUE : Token 토큰을적는위치 `(Token을 써주고 한칸 띄워서 붙여넣는다)
+
+
+
+#### 코딩 순서
+
+1. `settings.py` 에서 `INSTALLED_APPS(또는 커스텀한 THIRD_PARTY_APPS)`에 `"rest_framework.authtoken"` 추가
+
+   - 이를 위해 새로운 DB컬럼이 추가된다. **즉, `migrate` 필요** (`makemigrations` 필요X)
+
+2. `settings.py` 에 다음을 추가
+
+   ```python
+   REST_FRAMEWORK = {
+       "DEFAULT_AUTHENTICATION_CLASSES": [
+           "rest_framework.authentication.TokenAuthentication", # 추가
+       ]
+   }
+   ```
+
+3. `users/urls.py` 에 url 추가 (view는 django가 이미 가지고 있다)
+
+   ```python
+   from rest_framework.authtoken.views import obtain_auth_token
+   
+   urlpatterns = [
+       ...,
+       path("token-login",obtain_auth_token),
+   ]
+   ```
+
+4.  `token-login`으로 로그인한 유저가 POST하면 토큰을 반환받는다.
+5. 이후 유저가 무언가를 반환받기 위해선 **규칙**에 따라 토큰을 보내주어야 한다.
+
+
+
+
+
+### JWT (JSON Web Token) Authentication
+
+**토큰을 저장해야하는 기존의 방식과는 다르게 DB의 소모가 없는것이 장점. 단, 유저의 강제 로그아웃이 불가능** 
+
+
+
+작동 방식
+
+1. 유저가 아이디, 패스워드를 주면
+2. 토큰을 생성하고 유저 정보를 토큰에 넣어서 유저에게 준다. (ID 같은 데이터)
+3. 유저는 토큰을 가지고 있다가 다시 보낸다.
+4. 토큰을 열어 이전에 넣었던 정보를 확인.
+
+
+
+#### 코딩 순서
+
+1. `pip install pyjwt` 또는 `poetry add pyjwt`
+
+   ```python
+   ## jwt 사용 코드
+   import jwt
+   
+   # 암호화. 유저에겐 암호화된 정보가 보임
+   encoded_jwt = jwt.encode({"some":"payload"},"secret",algorithm="HS256")
+   # 복호화
+   decode_jwt = jwt.decode(encoded_jwt,"secret",algorithm=["HS256"]) 
+   print(decode_jwt) # {"some":"payload"}
+   ```
+
+2. `users/urls.py` 에 url 추가 (**view 따로 추가**)
+
+   ```python
+   from . import views
+   
+   urlpatterns = [
+       ...,
+       path("token-login",views.JWTLogin.as_view()),
+   ]
+   ```
+
+3. ```python
+   # views.py
+   
+   class JWTLogIn(APIView):
+       def post(self, request):
+           username = request.data.get("username")
+           password = request.data.get("password")
+           if not username or not password:
+               raise ParseError
+           user = authenticate(
+               request,
+               username=username,
+               password=password,
+           )
+           if user: # 유저 정보를 암호화하여 반환
+               token = jwt.encode(
+                   {"pk": user.pk},
+                   settings.SECRET_KEY, # django의 SECRET_KEY를 사용
+                   algorithm="HS256",
+               )
+               return Response({"token": token})
+           else:
+               return Response({"error": "wrong password"})
+   ```
+
+   - 암호화할 때, 위의 예시에선 `pk`만 넣음.
+     - 복호화의 가능성이 있기 때문에 민감한 정보X. 
+     - **JWT의 보안점은 암호화**가 아닌 **우리가 준 토큰인지, 수정이 있었는지 알 수 있다는 것**. 
+
+4.  여기부터 decode 단계. settings.py에 다음을 추가
+
+   ```python
+   REST_FRAMEWORK = {
+       "DEFAULT_AUTHENTICATION_CLASSES": [
+        ...,
+   	"config.authentication.JWTAuthentication", # 추가
+       ]
+   }
+   ```
+
+5. `config.authentication.py`생성 후 클래스 추가
+
+   ```python
+   from multiprocessing import AuthenticationError
+   import jwt
+   from django.conf import settings
+   from rest_framework.authentication import BaseAuthentication
+   from rest_framework.exceptions import AuthenticationFailed
+   from users.models import User
+   
+   class JWTAuthentication(BaseAuthentication):
+       def authenticate(self, request):
+           token = request.headers.get("Jwt")
+           if not token:
+               return None
+           decoded = jwt.decode(
+               token,
+               settings.SECRET_KEY,
+               algorithms=["HS256"],
+           )
+           pk = decoded.get("pk")
+           if not pk:
+               raise AuthenticationFailed("Invalid Token")
+           try:
+               user = User.objects.get(pk=pk)
+               return (user, None)
+           except User.DoesNotExist:
+               raise AuthenticationFailed("User Not Found")
+   ```
+
+6. 이하 Token 방식과 동일한 POST 방식
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
