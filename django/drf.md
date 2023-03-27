@@ -134,7 +134,7 @@ class Categories(APIView): # 모델은 단수/ 뷰는 복수형으로 명명
     
     
     def post(self,request,pk):
-        serializer = CategorySerializer(data=request.data) # 요청 정보를 받아서 serializer
+        serializer = CategorySerializer(data=requset.data) # 요청 정보를 받아서 serializer
         if serializer.is_valid(): # is_valid()로 적합한 데이터 확인
             new_category = serializer.save() # 맞다면 db에 저장 후 객체로 선언
             return Response(
