@@ -1,4 +1,4 @@
-에러 모음
+에러 모음(재정리)
 
 # migration 관련
 - `No change detected` : migrate 가 된 후 다시 migrate가 되었을 때
