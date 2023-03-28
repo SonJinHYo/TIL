@@ -92,6 +92,7 @@ django 정리 및 코드템플릿 (메인 참고자료)
    3. `BASE_DIR` 아래줄에 `environ.Env.read_env(os.path.join(BASE_DIR,".env"))` 추가
    4. 사용예시ex. `SECRET_KEY = env("SECRET_KEY")` ( env(`.env`내의 변수명) )
 
+
 ##### 주의사항
 
 - `.env` 폴더 내부에선 **띄어쓰기**를 하면 인식이 안된다.
@@ -522,8 +523,200 @@ django_docs : https://docs.djangoproject.com/ko/4.1/topics/templates/
 
 
 
+## tests.py
+
+`python manage.py test` : 모든 `test.py` 실행 및 결과 출력
+
+DRF 테스트 클래스 사용 : `from rest_framework.test import APITestCase`
+
+### APITestCase Functions
+
+**거짓일 시 출력할 문구는 알아서 인자로 넣기**
+
+- `assertEqual(a,b)/assertNotEqual(a,b)` : `a == b/ a=! b` 테스트. 
+- `assertIsInstance(a,type)` : `a의 타입 == type` 테스트. 
+- `assertIn(a,b)/assertNotIn(a,b)` : `a in b/ a not in b` 테스트.
+
+
+
+### Rules
+
+1. 테스트 클래스 내부의 테스트 함수는 `test_`로 시작한다. `def test_blabla(self):` (self는 APITestCase를 참조)
+
+2. `python manage.py test`를 할 경우 테스트용 db가 생성후 삭제된다. **테스트에 사용될 default value를 작성할 것**
+   - `def setUp(self):` 테스트 전에 실행되는 함수. default값 설정시 사용
+3. 테스트 코드를 세부적으로 나누는 법 (프로젝트 크기가 커질 시)
+   1. tests 폴더 생성
+   2. `__init__.py` 생성 (django가 패키지로 인식)
+   3. `test_filename.py` 생성 (**test가 반드시 앞에 붙어야 django가 인식**). 이후 tests.py와 동일하게 작성
+
+
+
+### 코드 템플릿
+
+- setUp, GET test
+
+  ```python
+  class TestAmenities(APITestCase):
+      NAME = "Amenity Test"
+      DESC = "Amenity Des"
+      URL = "/api/v1/rooms/amenities/"
+      UPDATE_NAME = "Update Amenity"
+      UPDATE_DESC = "Update Dsc"
+      
+      def setUp(self): # Ruels 2.
+          models.Amenity.objects.create(
+              name=self.NAME,
+              description=self.DESC,
+          )
+  
+      def test_all_amenities(self):
+          response = self.client.get(self.URL)
+          data = response.json()
+  
+          self.assertEqual( # response 확인
+              response.status_code,
+              200,
+              "Status code isn't 200.",
+          )
+          self.assertIsInstance( # type 확인
+              data,
+              list,
+          )
+          
+          # 이하 오브젝트 데이터가 맞는지 확인
+          self.assertEqual(
+              len(data),
+              1,
+          )
+          self.assertEqual(
+              data[0]["name"],
+              self.NAME,
+          )
+          self.assertEqual(
+              data[0]["description"],
+              self.DESC,
+          )
+  ```
+
+  - `self.client` 사용법 : `response = self.client.get/post/put/delete("api주소")` 
+
+- POST(생성) test (예시는 위 클래스와 이어서, **유저 생성이 아닌 모델 생성**)
+
+  ```python
+      def test_create_amenity(self):
+  
+          new_amenity_name = "New Amenity"
+          new_amenity_description = "New Amenity desc."
+  
+          response = self.client.post(
+              self.URL,
+              data={
+                  "name": new_amenity_name,
+                  "description": new_amenity_description,
+              },
+          )
+          data = response.json()
+  
+          self.assertEqual( # response 확인
+              response.status_code,
+              200,
+              "Not 200 status code",
+          )
+          
+          # 이하 데이터 확인
+          self.assertEqual(
+              data["name"],
+              new_amenity_name,
+          )
+          self.assertEqual(
+              data["description"],
+              new_amenity_description,
+          )
+          
+  		# 잘못된 요청 테스트
+          response = self.client.post(self.URL)
+          data = response.json()
+  
+          self.assertEqual(response.status_code, 400)
+          self.assertIn("name", data)
+  ```
+
+  - response_test 에러시 `views.py`의 `Response(status=)` 설정 확인
+
+- PUT test
+
+  ```python
+      def test_put_amenity(self):
+          response = self.client.put( # put request
+              "/api/v1/rooms/amenities/1",
+              data={"name": self.UPDATE_NAME, "description": self.UPDATE_DESC},
+          )
+  		
+          # 업데이트 데이터와 response 확인
+          data = response.json()
+          self.assertEqual(data["name"], self.UPDATE_NAME) 
+          self.assertEqual(data["description"], self.UPDATE_DESC)
+          self.assertEqual(response.status_code, 200)
+  		
+          # max_length 테스트
+          name_len_200 = 'a' * 200
+          name_validate_response = self.client.put(
+              "/api/v1/rooms/amenities/1",
+              data={"name": name_len_200},
+          )
+          
+          data = name_validate_response.json()
+          self.assertIn('name', data)
+          self.assertNotIn('decs', data)
+          self.assertEqual(name_validate_response.status_code, 400)
+  ```
+
+- DELETE test
+
+  ```python
+      def test_delete_amenity(self):
+  
+          response = self.client.delete("/api/v1/rooms/amenities/1")
+  
+          self.assertEqual(response.status_code, 204)
+  ```
+
+- Authentication test (ex. 유저가 방을 만드는 상황일 때)
+
+  ```python
+  class TestRooms(APITestCase):
+      def setUp(self):
+          user = User.objects.create(
+              username="test",
+          )
+          user.set_password("123")
+          user.save() # save는 테스트DB에 저장된다
+          self.user = user
+  
+      def test_create_room(self):
+  
+          response = self.client.post("/api/v1/rooms/")
+  
+          self.assertEqual(response.status_code, 403) # 로그인 전 테스트
+  		
+          # 로그인 자체를 테스트
+          self.client.login(
+              username = "test",
+              password = "123"
+          )
+          # 로그인 테스트가 아닌 다른 테스트를 위한 강제 로그인 상태로 만들기
+          # 인증시스템을 통과하는지 체크할 때 사용 (로그인 여부에 따른 response 확인)
+          self.client.force_login(
+              self.user,
+          )
+  ```
+
+  
+
 
 
 ### 주의사항
 
 같은 폴더 내의 파일을 import 할 때, `import views ` 를 하면 에러, `from . import views`로 해야 에러가 안난다.
+
