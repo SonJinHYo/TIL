@@ -438,7 +438,7 @@ class LogOut(APIView):
         return Response({"ok": "bye!"})
 ```
 
-- `authenticate(request=None,**credentials)` : User 인증함수
+- `authenticate(request=None,**credentials)` : User 인증함수 `from django.contrib.auth import authenticate,login,logout`
   - 유요한 User객체가 있다면 해당 객체를 반환. 아닐 시 None 반환
 - `login(request,user,backend=None)` : 로그인 함수
   - django의 세션 프레임워크를 사용하여 세션에 인증된 사용자의 ID를 저장
@@ -509,7 +509,8 @@ django 문서 : https://www.django-rest-framework.org/api-guide/authentication/#
    ]
    ```
 
-4.  `token-login`으로 로그인한 유저가 POST하면 토큰을 반환받는다.
+4. `token-login`으로 로그인한 유저가 POST하면 토큰을 반환받는다.
+
 5. 이후 유저가 무언가를 반환받기 위해선 **규칙**에 따라 토큰을 보내주어야 한다.
 
 
@@ -586,7 +587,7 @@ django 문서 : https://www.django-rest-framework.org/api-guide/authentication/#
      - 복호화의 가능성이 있기 때문에 민감한 정보X. 
      - **JWT의 보안점은 암호화**가 아닌 **우리가 준 토큰인지, 수정이 있었는지 알 수 있다는 것**. 
 
-4.  여기부터 decode 단계. settings.py에 다음을 추가
+4. 여기부터 decode 단계. settings.py에 다음을 추가
 
    ```python
    REST_FRAMEWORK = {
