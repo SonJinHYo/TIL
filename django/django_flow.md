@@ -322,6 +322,9 @@ class HouseAdmin(admin.ModelAdmin):
         # 두번째 원소로 house를 넣으면 House 모델의 각 객체를 house으로 받게 된다.
         pass
     
+    ## ManyToMany필드 읽기 함수 (violations가 MTM필드 일 때)
+	def name_list(self, obj):
+        return ",".join([violation.name for violation in obj.violations.all()])
     
 ```
 
@@ -443,7 +446,7 @@ class <ClassNameConfig>(AppConfig):
 
 ```python
 # config/ views.py 파일
-from django.urls import path
+from django.urls import path,include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -712,9 +715,47 @@ DRF 테스트 클래스 사용 : `from rest_framework.test import APITestCase`
           )
   ```
 
+### Fields 테스트데이터 생성
+
+- DateTime Test
+
+  - 필요 라이브러리 : `from django.utils import timezone` , `import datetime`
+  - `created_ad = timezone.now()` 
+  - `datetime.date/datetime.today()/now()` : 오늘의 date/now 등을 **마이크로초** 반환
+  - `datetime.timedelta(week=,days=,...)` 입력받은 기간을 **마이크로초**로 반환
+
   
 
+- ManyToMany Test
 
+  ```python
+      def create_violation_info_1(self):
+          """
+  		violations : m2m 필드
+          """
+          # 2개의 M2M 필드를 넣는다고 하면
+          # 1. 입력할 m2m object 생성
+          vio1 = self.create_violations(self.VIO1, self.LAW1) 
+          vio2 = self.create_violations(self.VIO2, self.LAW2) 
+          # 2. m2m object를 입력할 object(아래선 return_obj) 생성
+          return_obj = obj.objects.create(**data)
+          
+          # 3. add를 사용하여 추가
+          # 3-1
+          return_obj.violations.add(vio1)
+          return_obj.violations.add(vio2)
+          # 3-2 전체 오브젝트 일 때 (vios)
+  		return_obj.violations.add(**vios) 
+          
+          data = {
+              "violations": v1,
+              "img": self.IMG_URL,
+              "detected_time": self.DETECTED_TIME,
+          }
+          return ViolationInfo(**data)
+  ```
+
+  
 
 ### 주의사항
 
