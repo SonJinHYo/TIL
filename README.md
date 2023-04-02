@@ -11,7 +11,7 @@ _53 TILs and counting..._
 ### 3 most recent TILs
 
 - [에러 모음(재정리)](django/error.md) - Tue Mar 28 18:20:57 2023 +0900
-- [django 정리 및 코드템플릿 (메인 참고자료)](django/drf.md) - Tue Mar 14 15:07:48 2023 +0900
+- [DRF (메인 참고자료)](django/drf.md) - Tue Mar 14 15:07:48 2023 +0900
 - [ORM](django/orm.md) - Sat Mar 11 19:06:31 2023 +0900
 
 ### Categories
@@ -100,7 +100,7 @@ _53 TILs and counting..._
 ### [django](#django)
 - [django의 python teminal로 데이터 다루기](django/django_datacontrol.md)
 - [DRF (메인 참고자료)](django/django_flow.md)
-- [django 정리 및 코드템플릿 (메인 참고자료)](django/drf.md)
+- [DRF (메인 참고자료)](django/drf.md)
 - [에러 모음(재정리)](django/error.md)
 - [관리자,앱 생성](django/make_app.md)
 - [ORM](django/orm.md)
