@@ -99,9 +99,9 @@ _53 TILs and counting..._
 
 ### [django](#django)
 - [django의 python teminal로 데이터 다루기](django/django_datacontrol.md)
-- [django 정리 및 코드템플릿 (메인 참고자료)](django/django_flow.md)
 - [DRF (메인 참고자료)](django/drf.md)
 - [에러 모음(재정리)](django/error.md)
+- [django 정리 및 코드템플릿 (메인 참고자료)](django/flow.md)
 - [관리자,앱 생성](django/make_app.md)
 - [ORM](django/orm.md)
 - [REST API](django/rest.md)
