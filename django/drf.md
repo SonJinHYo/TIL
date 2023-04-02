@@ -2,7 +2,7 @@ DRF (메인 참고자료)
 
 
 
-# DEF  (Django Rest Framework)
+# DF  (Django Rest Framework)
 
 #### API (Application Programming Interface)
 
