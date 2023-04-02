@@ -1,763 +1,672 @@
-django 정리 및 코드템플릿 (메인 참고자료)
+DRF (메인 참고자료)
 
 
 
-# 환경 (poetry)
+# DF  (Django Rest Framework)
 
-1. `poetry init` : 가상환경 설정. `pyproject.toml`, `poetry.lock `파일을 생성하여 라이브러리 관린
-2. `poetry shell ` 
-3. `django-admin startproject <project name> <path>`  : ex)`django-admin startproject config .` - 현 폴더에 `config` 관리폴더와 `manage.py `생성
-4. `command pallette` 를 통해 `gitignore` 생성
+#### API (Application Programming Interface)
 
-## 주의사항
+- 여러 프로그램, DB, 기능들의 상호 통신 방법을 규정하고 도와주는 매개체
 
-- 인터프리터 설정 해줄것
-- AWS EC2의 poetry는 최신 버전에서 좀 멀고 업데이트가 까다롭다. AWS를 통해 시작하려면 처음부터 AWS 환경에서 시작할 것
-- poetry를 인식하지 못하는 경우
+#### REST API (RESTful API)
 
-  - 'poetry' 용어가 cmdlet, 함수, 스크립트 파일 또는 실행할 수 있는 프로그램 이름으로 인식되지 않습니다. (아래 순서로 해결)
+- REST는 제약 조건이다. 현재의 표준화가 된 제약 조건.
 
-    1. 시스템 속성에 들어간다.
-
-    2. '고급'의 환경 변수에 들어간다
-
-    3. Path에 들어가서 poetry가 들어가있는 경로를 추가한다.
-       - ('C:\Users\사용자명\AppData\Roaming\Python\Scripts')
-
-    4. 재부팅
-- 인식해도 찾지를 못한다 `~~지정된 모듈을 찾을 수 없습니다` : IDE를 관리자 권한으로 실행
-
-## `django-admin` 주 명령어
-
-`django-admin`은 `django`자체를 관리하기 위한 커맨드 라인
-
-- `help` : 전체 도움말. 뒤에 다른 커맨드를 붙여 쓰면 해당 커맨드에 대한 옵션 설명이 나온다. 
-- `version` : 버전 확인
-- `sendtestemail <email address>`  :  django를 통한 이메일 전송이 잘 이루어지는지 확인하는 테스트 메일전송
+ - API가 RESTful로 간주되기 위한 조건.
+   - 클라이언트, 서버 및 리소스로 구성되었으며 요청이 HTTP를 통해 관리되는 클라이언트-서버 아키텍처
+   - [스테이트리스(stateless)](https://www.redhat.com/ko/topics/cloud-native-apps/stateful-vs-stateless) 클라이언트-서버 커뮤니케이션: GET 요청 간에 클라이언트 정보가 저장되지 않으며, 각 요청이 분리되어 있고 서로 연결되어 있지 않음
+   - 클라이언트-서버 상호 작용을 간소화하는 캐시 가능 데이터
+   - 정보가 표준 형식으로 전송되도록 하기 위한 구성 요소 간 통합 인터페이스. 여기에 필요한 것은 다음과 같습니다.
+     - 요청된 리소스가 식별 가능하며 클라이언트에 전송된 표현과 분리되어야 합니다.
+     - 수신한 표현을 통해 클라이언트가 리소스를 조작할 수 있어야 합니다(이렇게 할 수 있는 충분한 정보가 표현에 포함되어 있기 때문).
+     - 클라이언트에 반환되는 자기 기술적(self-descriptive) 메시지에 클라이언트가 정보를 어떻게 처리해야 할지 설명하는 정보가 충분히 포함되어야 합니다.
+     - 하이퍼텍스트/하이퍼미디어를 사용할 수 있어야 합니다. 즉, 클라이언트가 리소스에 액세스한 후 하이퍼링크를 사용해 현재 수행 가능한 기타 모든 작업을 찾을 수 있어야 합니다.
+   - 요청된 정보를 검색하는 데 관련된 서버(보안, 로드 밸런싱 등을 담당)의 각 유형을 클라이언트가 볼 수 없는 계층 구조로 체계화하는 계층화된 시스템.
+   - 코드 온디맨드(선택 사항): 요청을 받으면 서버에서 클라이언트로 실행 가능한 코드를 전송하여 클라이언트 기능을 확장할 수 있는 기능. 
 
 
 
-## `python manage.py` 주 명령어
+## 환경설정
 
-- `makemigrations`: DB컬럼에서 필요한 변경사항을 체크하여 migration 파일을 만든다
-- `migrate` : migration 파일을 읽어 변경사항을 DB에 적용한다
-- `createsuperuser` : 관리자 계정 생성
-- `startapp <app name>` : `app name`의 이름을 가지는 app폴더 생성
-  - 이후 `settings.py`의 `INSTALLED_APPS`에 app폴더/apps.py의 첫 클래스 이름을 추가
-- `shell` : 터미널에 django를 구성. (settings.py를 가져온다)
+1. `pip install djangorestframework`
+2. `settings.py`로 이동 후,  `INSTALLED_APPS`에 `'rest_framework'` 추가
+3. Chorme에 `JSON Viewer`를 설치하면 보기 편함.
 
 
 
-## settings.py
+## views.py
 
-#### Korea 설정
+### Functions
 
-- `LANGUAGE_CODE = "ko-kr"`
-- `TIME_ZONE = "Asia/Seoul"`
+- `JsonResponse(dictionary)` : Json 응답을 위한 함수.  `from django.http`
 
-#### 유저가 업로드한 media 파일 저장경로 설정 (개발 단계 한정 저장경로)
+- `serializers.serialize("json",queryset)` :  queryset을 해당 포맷으로 바꿔준다. "json/xml/jsonl/yaml" `from django.core`
 
-`FileField()`를 통해 받게된 media파일에 대해 설정
+  - serializers.py를 사용하지 않는 상황에서 주로 사용. 권장X
 
-1. `settings.py` 내에 `MEDIA_ROOT = uploads` 추가  : `uploads` 폴더에 저장 (자동생성)
+- `Response` : DRF에서 제공하는 response 함수. `from rest_framework.response`
 
-2. `settings.py` 내에 `MEDIA_URL = "user-uploads/"` 추가 : 저장된 파일의 url경로
+- `api_view` : DRF에서 제공하는 **decorator**.  `from rest_framework.decorator`
 
-   - **반드시 마지막에 slash 추가**
+- `exceptions `: 여러가지 에러 반환. `from rest_framework`
 
-3. `config/urls.py` 에 다음과 같이 static 추가
+  - ex. `raise exceptions.NotFound `
 
-   ```python
-   from django.conf.url.static import static
-   from django.conf import settings
-   
-   urlpatterns = [
-       ...
-   ] + static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT) # 추가 항목
-   ```
+- `status` : 여러가지 HTTP status 반환. `from rest_framework`
 
-**개발 단계 한정 이유** : 업로드 데이터의 문제 + 업로드 파일을 서버 디스크 공간에 할애
+  - ex. `Response(status=status.HTTP_204_NO_CONTENT)`
 
-- django는 url 경로만 알기 때문에 업로드 데이터 확인 불가
-- 서비스 단계 방식으로는 cloudflare을 이용한 이미지URL만을 받는 방식
+- `transaction` : 에러시 쿼리와 db상태를 롤백. `from django.db`
 
-#### env 폴더 설정
+  - 배경
 
-1. `settings.py`의 상위 폴더 위치에 `.env` 파일 생성
-2. `.gitignore` 에 `.env` 추가
-3. `poetry add django-environ`
-4. `settings.py`에서 
-   1. `import os`/ `import environ` 추가
-   2. 가장 위쪽에 `env = environ.Env()` 추가
-   3. `BASE_DIR` 아래줄에 `environ.Env.read_env(os.path.join(BASE_DIR,".env"))` 추가
-   4. 사용예시ex. `SECRET_KEY = env("SECRET_KEY")` ( env(`.env`내의 변수명) )
+    - django는 기본적으로 모든 쿼리를 db에 즉시 적용한다.
+    - 쿼리를 생성하거나 수정할 때, 중간에 에러가 난다면 이전 수정사항을 수동으로 되돌려야 한다.
+      - 수동 자체도 번거롭지만 pk, id의 낭비가 심해진다.
 
+  - 작동방식
 
-##### 주의사항
+    1.  포함된 내용의 코드를 즉시 적용하지 않고 변경사항을 탐색
+    2.  변경사항들을 리스트로 만듦
+    3.  에러가 없다면 db에 push. 에러가 발생한다면 push하지 않는다.
+        - ` transaction` 내에 `try-except`구문이 없어야 하는 이유. 에러 발생시 except 단계에서 에러가 제외됨.
 
-- `.env` 폴더 내부에선 **띄어쓰기**를 하면 인식이 안된다.
-  - `SECRET_KEY="asdasad"` (O)
-  - `SECRET_KEY = "asdasd"` (X)
+  - ex. (`try-except` 구문으로 감싸지 않아도 작동은 같다. **감싸주는 편이 에러 파악에 용이**)
 
-
-# APP
-
-## models.py
-
-```python
-from django.db import models
-
-class House(models.Model):
-    """ models.Model을 상속받는 기본 모델. """
-    
-    # field 설정 라인
-    name = models.CharField(max_length=180, default="")
-    country = models.CharField(
-        max_length=50,
-        default="대한민국",
-    )
-    city = models.CharField(
-        max_length=80,
-        default="경주",
-    )
-    price = models.PositiveIntegerField()
-    rooms = models.PositiveIntegerField()
-    host = models.ForeginKey("users.User",on_delete=models.CASCADE)
-    
-    def __str__(self):
-        # 해당 객체의 이름 표현
-        return self.name
-```
-
-### 상용 Field(essential_param=) 
-
-django docs : https://docs.djangoproject.com/ko/4.1/ref/models/fields/#field-types
-
-- `CharField(max_length=)` : 짧은 크기의 문자열 입력란
-- `PositiveIntegerField()` 
-- `TextField()` : 많은 양의 텍스트를 쓸 수 있는 입력란
-- `BooleanFiled(default=)`
-- `DateField()`,`DateTimeField()` : 날짜/날짜와시간 입력
-  - argument로 `auto_now=True` / `auto_now_add=True`를 주로 사용 : object가 **최초 저장시에만/저장될 때마다** 필드값 갱신.
-
-- `EmailField()` : 이메일
-- `ImageField,URLfield,...`
-- `ManyToManyField("object")` : 두 테이블간의 다대다 관계를 관리해주는 중간테이블 생성.
-  - 특징
-    - `_set`을 이용한 역참조가 가능하다. `room3.user_set.all()` : room3를 예약한 모든 사람.
-      - 역참조 이름을 설정해줄수 있다. `ManyToManyField(..., related_name = 'users')`. (user_set이 아닌 users로 역참조 가능)
-
-    - 데이터 추가/쿼리가 양쪽에서 가능. (위에선 House에만 필드를 추가했지만 users 모델에서 House를 부를 수 있게 된다)
-
-
-
-#### Field Parameter(default value) 
-
-django docs : https://docs.djangoproject.com/ko/4.1/ref/models/fields/
-
-- `null=False`  : True시 빈 값은 모두 null 값이 된다. (null 값을 허용한다.)
-
-- `blank=False` :  빈 칸을 허용한다.(필수적이지 않도록 한다.)
-
-- `default=` : default값 설정
-
-- `editable=True` : False 일 때, 수정이 불가능하면 관리 패널에서 사라짐
-
-- `help_text=` : 해당 필드의 부가설명을 추가한다.
-
-- `verbose_name=` : 설정한 이름으로 필드 이름을 설정. default로는 django가 자동으로 필드 이름에 맞게 생성
-
-- `choices=<ChoicesClass>`  : 보기 중 고를 수 있도록 설정
-
-  - ```python
-    class User(AbstractUser):
-    	class GenderChoices(models.TextChoices):
-            # 튜플의 첫 원소는 db의 value, 두 번쨰는 관리자페이지의 label
-            MALE = ("male","Male")
-            FEMALE = ("female","Female")
-    
-            gender = models.CharField(max_length=10,choices = GenderChoices)
+    ```python
+    	try:
+    		with transaction.atomic():
+            	room = serialzer.sava(
+                    owner = request.user,
+                    category = category,
+                	)
+                options = request.data.get("options")
+                
+                for option_pk in options: # 위에서 데이터를 저장했지만 options의 데이터 상태나 내용물에서 에러가 날 수 있다.
+                    pass
+                
+                return Response(serializer.data,status="~~")
+        except Exception:
+            raise ParseError("Option Not Found")
     ```
 
-
-#### ForeginKey(object, on_delete=)
-
-- 해당 모델의 id를 부여.
-- object에는 model class 위치를 넣는다.
-  - 단, 커스텀 유저 모델을 넣을 시, `"users.User"` 보다는 `settings`를 불러와서 `settings.AUTH_USER_MODEL` 이 권장된다.
-    1. 유저 모델이 바뀔 수 있으니까
-    2. `settings `불러오기 : `from django.contrib import settings`
-- on_delete : id 객체 삭제시 데이터 처리
-  - `on_delete = models.CASCADE` : id 객체 삭제 시 해당 모델 객체도 삭제. (ex. 유저 삭제 시 프로필 사진)
-  - `on_delete = models.SET_NULL ` : id 객체 삭제 시 객체를 null로 대체 (ex. 유저 삭제 시 결제 내역)
-- `related_name` : 역참조시 이름 명명
-  - 관행적으로 모델명의 복수형으로 사용 
-    - ex. 모델명(참조모델X)이 `Tweet` 이면 `related_name="tweets"`
-
-  - 없을경우 자동으로 `모델명_set`의 역참조 쿼리 생성
+    
 
 
+### Class
 
+- `APIView` : views.py 클래스에 사용하는 상속클래스. `from rest_framework.views`
+- `ModelViewSet` : 기본 . `from rest_framework.viewsets`
 
-#### 주의사항
+### example (ViewSet X)
 
-- 모든 model은 `pk`(Primary Key)를 **선언하지 않아도 가지고 있다.** column type은 `Foregin Key`이므로 **정수와 착각X**
-- 기존 db가 존재하는 상태에서 새로운 Field를 추가할 시, 터미널에 다음 에러가 나타날 수 있다.
-  - It is impossible to add a  non-nullable field 'field_name' to user without specifying a default. This is because the database needs something to populate existing rows. Please select a fix: (기존 값에 이 필드를 추가할 시 어떻게 추가할 것인가. 이 문구는 booleanField는 null값을 기본으로 할 수 없다는 뜻)
-    1. Provide a one-off default now (will be set on all existing rows with a null value for this columns) (일회성 값을 추가한다. null값으로 돌아가게 된다.)
-    2. Quit and manually define a default value in models.py (멈추고 models.py에서 deefault값을 설정한다)
-
-
-
-### Custom User Model
-
-django에서 기본 모델을 제공. 단, 커스터마이징을 적극 권장. **반드시 프로젝트 초반에 할 것**
-
-#### User Model Customizing
-
-django docs : https://docs.djangoproject.com/ko/4.1/topics/auth/customizing/#extending-the-existing-user-model
-
-1. `python manage.py startapp users` : 새로운 User App 생성
-
-2. users/models.py 로 가서,
-
-   ```python
-   from django.contrib.auth.models import AbstractUser
-   
-   class User(AbstractUser):
-       """
-       사용법 : AbstactUser로 가서 필요한 property를 그대로 가져온다.
-       """
-       pass
-   
-   	## 클래스 복수형 표현 수정 (or 다른 이름)
-       class Meta:
-           verbose_name_plural = "복수형/다른 이름"
-   ```
-
-3. `settings.py ` 에 다음 내용 추가
-
-   ```python
-   .
-   .
-   # users app 등록
-   INSTALLED_APPS = [...,
-                     users.apps.UserConfig,]
-   .
-   .
-   # 맨 끝에 커스텀 유저모델 선언
-   # Auth
-   AUTH_USER_MODEL = "users.User" # User 클래스 위치
-   ```
-
-4. `python manage.py makemigrations` , `python manage.py migrate` 실행 : DB에 등록
-
-5. `users/admin.py` 에서 관리자 클래스 추가 : 다른 앱과는 다르게 상속받은 클래스를 관리하므로 차이가 있다.
-
-   ```python
-   from django.contrib.auth.admin import UserAdmin
-   from .models import User
-   
-   @admin.register(User)
-   class CustomUserAdmin(UserAdmin):
-       """
-       사용법 : UserAdmin으로 가서 필요한 property를 그대로 가져온다. https://docs.djangoproject.com/en/4.1/ref/contrib/admin
-       """
-       # fieldsets : model의 field가 보이는 순서 설정. 
-       fieldsets = (
-           (
-               "Profile", # 이름대신 None을 선언하면 큰 Section이 없어짐
-               {
-                   "fields":("username","password","email",), # User properties
-                   "classes": ( # 문서 참조
-                       "collapse", # 숨김 버튼 제공
-                       "wide", # 더 넓게 펴기
-                   )
-               }
-           )
-       )
+```python
+"""  (함수 방식) """
+@api_view(["HTTP Methods"]) # api_view(["GET","POST","DELETE"])
+def categories(request):
+    """ serializer """
+    all_categories = Category.objects.all() # 데이터를 불러와서
+    serializer = CategorySerializer(all_categories,many=True) # serialize / 여러 객체일시 반드시 many=True 추가
+	
+    """ HTTP Method """
+    if request.method == "GET":
+        
+	elif request.method == "POST":
        
-       #list_display : 사용자 list를 표시할 때 보이는 column 설정
-       list_display = ("username","email","gender",)
+    
+    return Response({category : serializer.data}) # 데이터를 Response에 반환  
+
+
+"""   권장(클래스 방식)   """
+class Categories(APIView): # 모델은 단수/ 뷰는 복수형으로 명명
+    
+    # django convention. object 하나를 얻을 때 자주 선언
+	def get_object(self,pk): 
+        try:
+            return Category.objects.get(pk=pk)
+        except Category.DoseNotExist:
+            raise exceptions.NotFound
+    
+    
+    def get(self,request,pk):
+		serializer = CategorySerializer(self.get_object(pk))
+        return Response(serializer.data)
+    
+    
+    def post(self,request,pk):
+        serializer = CategorySerializer(data=request.data) # 요청 정보를 받아서 serializer
+        if serializer.is_valid(): # is_valid()로 적합한 데이터 확인
+            new_category = serializer.save() # 맞다면 db에 저장 후 객체로 선언
+            return Response(
+                CategorySerializer(new_category).data, # JSON으로 반환
+            )
+        else:
+            return Response(serializer.errors,status = "status 추가") # 적합한 데이터가 아니라면 에러 반환
+    
+    
+	def put(self,request,pk): 
+        serializer = CategorySerializer(
+            self.get_object(pk),
+            data=request.data,
+            partial=True, # 일부 데이터만 넣을 때 사용
+        )
+        if serializer.is_valid():
+            updated_category = serializer.save()
+            return Response(CategorySerializer(updated_category).data)
+        else:
+            return Response(serializer.errors,status = "status 추가")
+        
+        
+	def delete(self, request, pk):
+        self.get_object(pk).delete()
+        return Response(status=HTTP_204_NO_CONTENT)
+       
+```
+
+##### `POST, DELETE, PUT`할 때 유저확인
+
+```python
+# 직접 쓰기 (권장X)
+	def post(self,request,pk):
+        if request.user.is_authenticated: # 유저 인증이 됐다면
+            serializer = CategorySerializer(data=request.data) 
+            if serializer.is_valid(): 
+                new_category = serializer.save() 
+                return Response(
+                    CategorySerializer(new_category).data,
+                )
+            else:
+                return Response(serializer.errors)
+        else: # 아닐시 
+			raise exceptions.NotAutenticated
+	
+  	def delete(self, request, pk):
+        obj = self.get_object(pk)
+        if not request.user.is_authenticated: # 유저 인증과
+            raise exceptions.NotAutenticated
+        if room.owner != request.user:	# 소유자 여부. PUT일 때도 이 2가지 체크
+            raise exceptions.PermissionDenied
+		obj.delete()
+        return Response("data",status=HTTP_204_NO_CONTENT)    
+```
+
+```python
+# permission_classes 사용 (권장O)
+from rest_framework.permisstions import IsAuthenticated
+
+class Categories(APIView):
+	permission_classes = [IsAuthenticated]
+    
+    
+from rest_framework.decorators import permission_classes
+
+# api_view에서의 사용
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def example_view(request, format=None):
+    pass
+```
+
+- permission_classes 종류 (DRF docs) : https://www.django-rest-framework.org/api-guide/permissions/#api-reference
+
+### example(ViewSet)
+
+DRF docs : https://www.django-rest-framework.org/api-guide/viewsets/#viewsets
+
+커스텀이 많다면 사용하지 않는것을 권장.
+
+- 기본적인 과정을 많이 가리고 주어진 기능만을 편하게 다룰수 있게 해주기 때문
+
+```python
+""" views.py """
+from .models import Category
+from .serializers import CategorySerializer
+
+class CategoryViewSet(ModelViewSet):
+    
+    serializer_class = CategorySerializer
+    queryset = Category.objects.all()
+    
+    
+""" urls.py """
+urlpatterns = [
+    path("<int:pk>",views.CategoryViewSets.as_view({
+        'get':'retrive',
+        'put':'partial_update',
+        'delete':'destroy',
+    }))
+]
+```
+
+
+
+
+
+## serializers.py
+
+### Functions
+
+- **QuerySet is not JSON serializalbe**
+  - serializer : QuerySet을 브라우저가 이해할 수 있는 JSON/ JSONL/ XML/ YAML 포맷으로 바꿔주는 번역기 역할
+    - post와 같은 반대 상황에서도 적용
+
+### Class
+
+- `ModelSerializer`: serializers.py 클래스의 상속클래스.  `from rest_framework.serializers`
+  - ex. `class CategorySerializer(serializers.Serializer):`
+
+
+
+### example
+
+```python
+from rest_framework.serializers import ModelSerializer
+
+class CategorySerializer(ModelSerializer):
+    """
+    Category의 Field중 보여줄 부분 명시. Category의 필드를 
+    Category가 어떻게 JSON으로 변환될 지 커스텀
+    """
+    class Meta: # db에 저장할 데이터가 아니므로
+        model = Category
+        fields = "__all__" # 모든 필드 보이기
+        fields = ("properties") # 일부 필드 보이기
+        exclude = ("properties") # 일부 필드 제외
+```
+
+
+
+### 관계확장 (Serializer 내의 Serializer)
+
+```python
+from users.serializers import TinyUserSerializer
+
+class CategorySerializer(serializers.Serializer):
+    
+    # 권장O
+    """
+    owner 필드를 가져올 때 커스텀한 TinyUserSerializer(간단유저정보)을 참조
+    단, Category를 POST할 때, TinyUserSerializer를 필요로 해선 안되므로 read_only=True 추가
+    """
+    owner = TinyUserSerialzer(read_only=True)
+    
+    class Meta: 
+        model = Category
+        fields = "__all__"
+        
+        # 권장X
+        depth = 1 # 필드의 모든 데이터를 출력
+```
+
+#### 특정 필드를 GET에선 Custom Serializer, POST에선 request.data 받기 (ex. owner 필드)
+
+1. `serializer = CategorySerializer(data=request.data)` 
+
+2. 이후 save시, `category = serializer.save(owner = request.user)` 으로 추가
+
+
+
+### SerializerMethodField
+
+#### 함수의 결과를 Serializer에서 사용하는 법
+
+1.  Serializer 모델클래스 내에서 `SerializerMethodField` 선언. `rating = seializers.SerializerMethodField()`
+2.  Serializer 모델클래스 내에서 함수 선언.  **이 때 반드시 get_함수명 으로 명명하고, 함수명은 변수와 같아야한다.** `def get_rating(self,object):`
+    - args : self, object(해당 객체를 받는다.
+
+
+
+### Serializer Context
+
+- Serializer의 인자에 `context = {}`를 넣어서 추가적인 내용을 전달할 수 있다
+- ex. `serializer = CategorySerializer(catergory,context = {"pet_name":"pupu"})`
+  - 이후 Serializer 클래스에서 `self.context`로 접근이 가능
+- **requset를 그대로 전할 때 주로 사용**. `context = {"request":request}`
+
+
+
+### Pagination
+
+#### 역접근자의 위험성
+
+- 역접근하는 모델의 모든 데이터를 가져올 때, 너무 많은 양의 데이터를 한번에 불러올 수 있음 -> Pagination 필요
+
+#### Pagination 설정
+
+1. Pagination은 전체페이지에 적용하는 설정이므로 `settings.py`에 설정
+
+   - `PAGE_SIZE = 5` 줄 추가 후 view 클래스에 적용. (`from django.conf import settings`)
+
+2. ```python
+   from django.conf import settings
+   
+   class RoomReviews(APIView):
+       def get_object(self, pk):
+           try:
+               return Room.objects.get(pk=pk)
+           except Room.DoesNotExist:
+               raise NotFound
+   
+       def get(self, request, pk):
+           try:
+               # http창에 `~~?page=2`의 입력을 받는다. get의 두번째 원소는 default값
+               page = request.query_params.get("page", 1) 
+               page = int(page) # 정수 변환(기본은 str타입). 정수 입력이 아닐 경우를 대비해 try구문
+           except ValueError:
+               page = 1
+           page_size = settings.PAGE_SIZE
+           start = (page - 1) * page_size
+           end = start + page_size
+           room = self.get_object(pk)
+           serializer = ReviewSerializer(
+               room.reviews.all()[start:end], # 현재 인덱스에서 설정한 페이지까지만
+               many=True,
+           )
+           return Response(serializer.data)
    ```
 
 
 
-### Common Model
-
-- 많은 모델이 공통필드를 가질 때 선언해두면 편하다.
-
-- ```python
-  # common app 선언 후 common models.py
-  from django.db import models
-  
-  class CommonModel(models.Model):
-      created_at = models.DateTimeField(auto_now_add = True)
-  	updated_at = models.DateTimeField(auto_now = True)
-      
-      # DB에 추가하지 않는 추상클래스임을 선언
-      class Meta:
-          abstact = True
-          
-  ```
-
-- 이후 CommonModel을 상속
-
-## admin.py
-
-### 해당 앱 관리자 등록
-
-django docs : https://docs.djangoproject.com/ko/4.1/ref/contrib/admin/
+### Create User
 
 ```python
-from django.contrib import admin
-from .models import House
+""" users.serializers.py """
+class PrivateUserSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        exclude = (
+            "password",
+            "is_superuser",
+            "id",
+            "user_permissions", # 제외할 필드목록
+        )
 
-@admin.register(House) # House class를 관리하는 class
-class HouseAdmin(admin.ModelAdmin):
-    list_display = ("name","price","rooms","some_method")
-    list_filter = ("price","city",)
-    
-    def some_method(self,house):
-        # 두번째 원소로 house를 넣으면 House 모델의 각 객체를 house으로 받게 된다.
-        pass
-    
-    ## ManyToMany필드 읽기 함수 (violations가 MTM필드 일 때)
-	def name_list(self, obj):
-        return ",".join([violation.name for violation in obj.violations.all()])
-    
-```
-
-- `list_display = (model의 properties)` : 관리창에 관리모델의 미리보기를 입력에 맞게 보여준다.
-- `list_filter = (model의 properties)` : 관리창 측면에 필터 생성. 입력에 맞게 필터를 생성한다.
-  - property를 탐색할 때 순서
-    - admin class 내부 property->  관리 model property -> 관리 모델 method
-
-- `search_fields = (model의 properties)` : 검색창 생성
-  - ex) `search_fields = (address,price)` : 검색창에 입력시 address와 price를 기준으로 입력값이 **포함된**  모든 것을 검색
-  - properties 뒤에 두 개의 언더바를 붙여서 옵션 설정 가능
-    - `search_fields = (address_starts/ends/contains/with)` : 검색한 텍스트로 시작하는/끝나는/포함하는 address만 검색.
-      - 위 조건들에 앞에 i가 붙으면 대소문자 구별X ( ex. istartswith )
-    - `<field_name>__lt/lte/gt/gte = val` : field_name  `<`  / `<=` / `>` / `>=` val
-    - `<field_name>__in = val_list` : val_list 내의 객체들 반환
-- `exclude = (model의 properties)` : 해당 property 제외
-
-- `fields = (model의 properties,(model의 properties),)` : 튜플로 묶어진 property는 한 칸에 같이 표현
-
-
-
-### Custom FIlter
-
-```python
-# 항상 looksup, queryset 2개의 함수를 가져야한다.
-class WordFilter(admin.SimpleListFilter):
-
-    title = "Filter by words!"
-
-    parameter_name = "word"
-
-    def lookups(self, request, model_admin):
-        # 커스텀 필터는 튜플리스트를 반환값으로 가진다
-        return [
-            # 튜플의 원소 : (url에 나타나는 값, admin 패널에 보여지는 값)
-            ("good", "Good"),
-            ("great", "Great"),
-            ("awesome", "Awesome"),
-        ]
-
-	# 필터링을 거친 값을 반환	
-    def queryset(self, request, reviews):
-        word = self.value()
-        if word:
-            return reviews.filter(payload__contains=word)
+""" users/views.py """
+class Users(APIView):
+    def post(self, request):
+        password = request.data.get("password") # 입력받은 패스워드
+        if not password:
+            raise ParseError
+        serializer = serializers.PrivateUserSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            user.set_password(password)
+            user.save()
+            serializer = serializers.PrivateUserSerializer(user)
+            return Response(serializer.data)
         else:
-            reviews
-
-@admin.register(Review)
-class ReviewAdmin(admin.ModelAdmin):
-
-    list_display = (
-        "__str__",
-        "payload",
-    )
-    
-    list_filter = (
-        WordFilter,
-        "rating",
-        "user__is_host",
-    )
+            return Response(serializer.errors)
 ```
 
+#### Save User Password
+
+- **틀린 방법** : `user.password = password`  (`password`는 입력받은 비밀번호)
+  - 저장하는 password는 해쉬화가 된 패스워드여야 한다.
+  - **옳은 방법** : `user.set_password(password)`
+- 현재 비밀번호 확인 방법 : `if user.check_password(now_password):`
+  - `now_password` : 입력받은 현재 패스워드. `now_password = request.data.get("now_password")`
 
 
 
-
-### Admin Actions
-
- ```python
-  # 1. admin.py 파일 내에서 액션함수 선언
-  
-  @admin.actions(description = "패널에서 액션 설명 문구")
-  def reset_prices(model_admin, request, queryset):
-      """
-      model_admin : 액션을 가진 admin모델
-      request : 요청 정보 (user 정보 포함)
-      queryset : 선택 요소. (room을 선택할 상황일 때, rooms로 이름을 지정하면 편함)
-      """
-  	# 가격 리셋
-      for room in rooms.all():
-          room.price = 0
-          room.save()
-            
-            
-@admin.register(Room)
-class RoomAdmin(admin.ModelAdmin):
-    
-    # 2. action 추가
-    actions = (reset_price,)
- ```
-
-## apps.py
-
-### 패널상의 앱 이름 변경
-
-apps.py에서
+### Log In/Out
 
 ```python
-class <ClassNameConfig>(AppConfig):
-    ...
-    # verbose_name 추가
-    verbose_name = "앱 이름"
+class LogIn(APIView):
+    def post(self, request):
+        username = request.data.get("username")
+        password = request.data.get("password")
+        if not username or not password: # 입력 에러
+            raise ParseError
+        user = authenticate(
+            request,
+            username=username,
+            password=password,
+        )
+        if user:
+            login(request, user)
+            return Response({"ok": "Welcome!"})
+        else:
+            return Response({"error": "wrong password"})
+
+
+class LogOut(APIView):
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        logout(request)
+        return Response({"ok": "bye!"})
 ```
 
+- `authenticate(request=None,**credentials)` : User 인증함수 `from django.contrib.auth import authenticate,login,logout`
+  - 유요한 User객체가 있다면 해당 객체를 반환. 아닐 시 None 반환
+- `login(request,user,backend=None)` : 로그인 함수
+  - django의 세션 프레임워크를 사용하여 세션에 인증된 사용자의 ID를 저장
+- `logout(request)` : 로그아웃 함수
+  - 요청한 로그인 세션에 대한 모든 데이터 삭제
 
 
-## views.py / urls.py / serializers.py
-
-참고 (DRF) : https://github.com/SonJinHYo/TIL/blob/main/django/drf.md
-
-### 기본 함수
-
-- `path("url",func)` : "url"을 요청받으면 func를 실행. `from django.urls`
-- `include("앱url")` : 경로를 해당 앱의 urls에서 찾도록 이어주는 django 함수  . `from django.urls`
-- `render(request,template_name,{key: value})` : 받은 request가 첫 인자, template가 두번째 인자, 딕셔너리 형태로 넘길 파라미터를 세번째 인자로 사용.
-  -   `from django.shortcut`
-  -   넘겨받은 파라미터는 key를 사용하고 value로 출력
-
-```python
-# config/ views.py 파일
-from django.urls import path,include
-
-urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("api/v1/rooms/", include("rooms.urls")),
-]
-```
-
-### apps/urls.py 추가
-
-ex . `api/v1/rooms/1/photo` 경로를 추가할 때,
-
-1. `config/urls.py`에 `path("api/v1/rooms/",include("rooms.urls"))` 추가 (rooms 앱일 경우)
-2. `rooms`폴더에 `urls.py` 추가
-3. `urlpatterns = [..., path("<int>/photo",function),]`
-   - function은 대체로 views에서 가져온다. `from . import views`
-
-###### `api/v1/` 명시 이유
-
-- `admin`페이지와 같이 서버 내부의 url로 착각하기 쉽다.
-- 버전 관리가 쉽다. 업데이트된 새로운 버전이 나온다면 `api/v2/rooms`를 추가해주면 된다.
-
-```python
-# rooms/ views.py 파일
-
-from django.urls import path
-from . import views  # DRF 참조
-
-urlpatterns = [
-	path("<int>/photo",views.RoomPhotos.as_view()),
-]
-```
-
-
-
-### URL_Args
-
-`rooms/<arg_type: arg_name>` :  URL에서 꺽쇠에 해당하는 위치의 문자는 arg_type으로 받아서 arg_name으로 사용. 
-
-- arg는 함수의 인자로 받게된다. 
-- arg가 여러 개라면 입력순으로 함수가 받는다.
-
-- ex . `path("rooms/<int:room_id>", views.see_one_room`)  
-  - 이 때 views.py의 see_one_room 함수 : `def see_one_room(request,room_id)`
-
-#### 주의사항
-
-str타입의 변수를 받을 때는 다른 url과 겹치지 않도록 아래로 내린다
-
-```python
-# 에러 발생 : home이 들어올 경우 'username'을 home으로 받는다
-urlpatterns = [
-	path("<str:username>",views.RoomPhotos.as_view()),
-	path("home/photo",views.RoomPhotos.as_view()),
-]
-
-# 줄을 바꾸어 수정
-urlpatterns = [
-	path("home/photo",views.RoomPhotos.as_view()),
-	path("<str:username>",views.RoomPhotos.as_view()),
-]
-
-# 인스타식 방법 (이름앞 특수문자)
-urlpatterns = [
-	path("@<str:username>",views.RoomPhotos.as_view()),
-	path("home/photo",views.RoomPhotos.as_view()),
-]
-
-```
-
-
-
-### templates
-
-django는 render을 통해 template를 찾을 때, 자동으로 `templates`폴더를 찾아 그 내부의 파일을 탐색
-
-django_docs : https://docs.djangoproject.com/ko/4.1/topics/templates/
-
-
-
-## tests.py
-
-`python manage.py test` : 모든 `test.py` 실행 및 결과 출력
-
-DRF 테스트 클래스 사용 : `from rest_framework.test import APITestCase`
-
-### APITestCase Functions
-
-**거짓일 시 출력할 문구는 알아서 인자로 넣기**
-
-- `assertEqual(a,b)/assertNotEqual(a,b)` : `a == b/ a=! b` 테스트. 
-- `assertIsInstance(a,type)` : `a의 타입 == type` 테스트. 
-- `assertIn(a,b)/assertNotIn(a,b)` : `a in b/ a not in b` 테스트.
-
-
-
-### Rules
-
-1. 테스트 클래스 내부의 테스트 함수는 `test_`로 시작한다. `def test_blabla(self):` (self는 APITestCase를 참조)
-
-2. `python manage.py test`를 할 경우 테스트용 db가 생성후 삭제된다. **테스트에 사용될 default value를 작성할 것**
-   - `def setUp(self):` 테스트 전에 실행되는 함수. default값 설정시 사용
-3. 테스트 코드를 세부적으로 나누는 법 (프로젝트 크기가 커질 시)
-   1. tests 폴더 생성
-   2. `__init__.py` 생성 (django가 패키지로 인식)
-   3. `test_filename.py` 생성 (**test가 반드시 앞에 붙어야 django가 인식**). 이후 tests.py와 동일하게 작성
-
-
-
-### 코드 템플릿
-
-- setUp, GET test
-
-  ```python
-  class TestAmenities(APITestCase):
-      NAME = "Amenity Test"
-      DESC = "Amenity Des"
-      URL = "/api/v1/rooms/amenities/"
-      UPDATE_NAME = "Update Amenity"
-      UPDATE_DESC = "Update Dsc"
-      
-      def setUp(self): # Ruels 2.
-          models.Amenity.objects.create(
-              name=self.NAME,
-              description=self.DESC,
-          )
-  
-      def test_all_amenities(self):
-          response = self.client.get(self.URL)
-          data = response.json()
-  
-          self.assertEqual( # response 확인
-              response.status_code,
-              200,
-              "Status code isn't 200.",
-          )
-          self.assertIsInstance( # type 확인
-              data,
-              list,
-          )
-          
-          # 이하 오브젝트 데이터가 맞는지 확인
-          self.assertEqual(
-              len(data),
-              1,
-          )
-          self.assertEqual(
-              data[0]["name"],
-              self.NAME,
-          )
-          self.assertEqual(
-              data[0]["description"],
-              self.DESC,
-          )
-  ```
-
-  - `self.client` 사용법 : `response = self.client.get/post/put/delete("api주소")` 
-
-- POST(생성) test (예시는 위 클래스와 이어서, **유저 생성이 아닌 모델 생성**)
-
-  ```python
-      def test_create_amenity(self):
-  
-          new_amenity_name = "New Amenity"
-          new_amenity_description = "New Amenity desc."
-  
-          response = self.client.post(
-              self.URL,
-              data={
-                  "name": new_amenity_name,
-                  "description": new_amenity_description,
-              },
-          )
-          data = response.json()
-  
-          self.assertEqual( # response 확인
-              response.status_code,
-              200,
-              "Not 200 status code",
-          )
-          
-          # 이하 데이터 확인
-          self.assertEqual(
-              data["name"],
-              new_amenity_name,
-          )
-          self.assertEqual(
-              data["description"],
-              new_amenity_description,
-          )
-          
-  		# 잘못된 요청 테스트
-          response = self.client.post(self.URL)
-          data = response.json()
-  
-          self.assertEqual(response.status_code, 400)
-          self.assertIn("name", data)
-  ```
-
-  - response_test 에러시 `views.py`의 `Response(status=)` 설정 확인
-
-- PUT test
-
-  ```python
-      def test_put_amenity(self):
-          response = self.client.put( # put request
-              "/api/v1/rooms/amenities/1",
-              data={"name": self.UPDATE_NAME, "description": self.UPDATE_DESC},
-          )
-  		
-          # 업데이트 데이터와 response 확인
-          data = response.json()
-          self.assertEqual(data["name"], self.UPDATE_NAME) 
-          self.assertEqual(data["description"], self.UPDATE_DESC)
-          self.assertEqual(response.status_code, 200)
-  		
-          # max_length 테스트
-          name_len_200 = 'a' * 200
-          name_validate_response = self.client.put(
-              "/api/v1/rooms/amenities/1",
-              data={"name": name_len_200},
-          )
-          
-          data = name_validate_response.json()
-          self.assertIn('name', data)
-          self.assertNotIn('decs', data)
-          self.assertEqual(name_validate_response.status_code, 400)
-  ```
-
-- DELETE test
-
-  ```python
-      def test_delete_amenity(self):
-  
-          response = self.client.delete("/api/v1/rooms/amenities/1")
-  
-          self.assertEqual(response.status_code, 204)
-  ```
-
-- Authentication test (ex. 유저가 방을 만드는 상황일 때)
-
-  ```python
-  class TestRooms(APITestCase):
-      def setUp(self):
-          user = User.objects.create(
-              username="test",
-          )
-          user.set_password("123")
-          user.save() # save는 테스트DB에 저장된다
-          self.user = user
-  
-      def test_create_room(self):
-  
-          response = self.client.post("/api/v1/rooms/")
-  
-          self.assertEqual(response.status_code, 403) # 로그인 전 테스트
-  		
-          # 로그인 자체를 테스트
-          self.client.login(
-              username = "test",
-              password = "123"
-          )
-          # 로그인 테스트가 아닌 다른 테스트를 위한 강제 로그인 상태로 만들기
-          # 인증시스템을 통과하는지 체크할 때 사용 (로그인 여부에 따른 response 확인)
-          self.client.force_login(
-              self.user,
-          )
-  ```
-
-### Fields 테스트데이터 생성
-
-- DateTime Test
-
-  - 필요 라이브러리 : `from django.utils import timezone` , `import datetime`
-  - `created_ad = timezone.now()` 
-  - `datetime.date/datetime.today()/now()` : 오늘의 date/now 등을 **마이크로초** 반환
-  - `datetime.timedelta(week=,days=,...)` 입력받은 기간을 **마이크로초**로 반환
-
-  
-
-- ManyToMany Test
-
-  ```python
-      def create_violation_info_1(self):
-          """
-  		violations : m2m 필드
-          """
-          # 2개의 M2M 필드를 넣는다고 하면
-          # 1. 입력할 m2m object 생성
-          vio1 = self.create_violations(self.VIO1, self.LAW1) 
-          vio2 = self.create_violations(self.VIO2, self.LAW2) 
-          # 2. m2m object를 입력할 object(아래선 return_obj) 생성
-          return_obj = obj.objects.create(**data)
-          
-          # 3. add를 사용하여 추가
-          # 3-1
-          return_obj.violations.add(vio1)
-          return_obj.violations.add(vio2)
-          # 3-2 전체 오브젝트 일 때 (vios)
-  		return_obj.violations.add(**vios) 
-          
-          data = {
-              "violations": v1,
-              "img": self.IMG_URL,
-              "detected_time": self.DETECTED_TIME,
-          }
-          return ViolationInfo(**data)
-  ```
-
-  
 
 ### 주의사항
 
-같은 폴더 내의 파일을 import 할 때, `import views ` 를 하면 에러, `from . import views`로 해야 에러가 안난다.
+Serializer은 대부분 한 객체의 데이터를 표현한다. 여러 객체를 받게될 시 `Serializer(many=True)`를 추가
+
+- ex. `member = MemberSerializer(many=True)` : 어떤 Serializer 클래스가 member 필드를 가질 때, 멤버가 두 명 이상일 수 있으므로.
+- 코드에 이상이 없음에도 DRF 페이지에서 `null` 값이 등장한다면 `many` 여부를 확인
+
+
+
+
+
+## Authentication
+
+views.py 의 클래스가 가지는 함수는 `(self,request)` 를 기본적으로 가지고, 이 때 `request.user` 로 user을 불러올 수 있다. 이 때 DRF는 백엔드에서 **쿠키,세션**을 보고 user을 식별 하고 그 과정에서 AUthentication 클래스가 쓰인다.
+
+
+
+### Token Authentication
+
+django 문서 : https://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication
+
+작동 방식
+
+1. 처음에 user에게 token을 주고 해당 토큰을 DB에 저장
+
+2. DEFAULT_AUTHENTICATION_CLASSES에 토큰인증이 되어있다면 자동으로 request에서 토큰을 찾아 user을 파악
+   - **APIView가 실행될 때 마다 토큰을 검색**
+
+규칙 : `headers`의 `Authorization `안에 토큰을 넣어야 한다.
+
+- `KEY : Authorization`
+- `VALUE : Token 토큰을적는위치 `(Token을 써주고 한칸 띄워서 붙여넣는다)
+
+
+
+#### 코딩 순서
+
+1. `settings.py` 에서 `INSTALLED_APPS(또는 커스텀한 THIRD_PARTY_APPS)`에 `"rest_framework.authtoken"` 추가
+
+   - 이를 위해 새로운 DB컬럼이 추가된다. **즉, `migrate` 필요** (`makemigrations` 필요X)
+
+2. `settings.py` 에 다음을 추가
+
+   ```python
+   REST_FRAMEWORK = {
+       "DEFAULT_AUTHENTICATION_CLASSES": [
+           "rest_framework.authentication.TokenAuthentication", # 추가
+       ]
+   }
+   ```
+
+3. `users/urls.py` 에 url 추가 (view는 django가 이미 가지고 있다)
+
+   ```python
+   from rest_framework.authtoken.views import obtain_auth_token
+   
+   urlpatterns = [
+       ...,
+       path("token-login",obtain_auth_token),
+   ]
+   ```
+
+4. `token-login`으로 로그인한 유저가 POST하면 토큰을 반환받는다.
+
+5. 이후 유저가 무언가를 반환받기 위해선 **규칙**에 따라 토큰을 보내주어야 한다.
+
+
+
+
+
+### JWT (JSON Web Token) Authentication
+
+**토큰을 저장해야하는 기존의 방식과는 다르게 DB의 소모가 없는것이 장점. 단, 유저의 강제 로그아웃이 불가능** 
+
+
+
+작동 방식
+
+1. 유저가 아이디, 패스워드를 주면
+2. 토큰을 생성하고 유저 정보를 토큰에 넣어서 유저에게 준다. (ID 같은 데이터)
+3. 유저는 토큰을 가지고 있다가 다시 보낸다.
+4. 토큰을 열어 이전에 넣었던 정보를 확인.
+
+
+
+#### 코딩 순서
+
+1. `pip install pyjwt` 또는 `poetry add pyjwt`
+
+   ```python
+   ## jwt 사용 코드
+   import jwt
+   
+   # 암호화. 유저에겐 암호화된 정보가 보임
+   encoded_jwt = jwt.encode({"some":"payload"},"secret",algorithm="HS256")
+   # 복호화
+   decode_jwt = jwt.decode(encoded_jwt,"secret",algorithm=["HS256"]) 
+   print(decode_jwt) # {"some":"payload"}
+   ```
+
+2. `users/urls.py` 에 url 추가 (**view 따로 추가**)
+
+   ```python
+   from . import views
+   
+   urlpatterns = [
+       ...,
+       path("token-login",views.JWTLogin.as_view()),
+   ]
+   ```
+
+3. ```python
+   # views.py
+   
+   class JWTLogIn(APIView):
+       def post(self, request):
+           username = request.data.get("username")
+           password = request.data.get("password")
+           if not username or not password:
+               raise ParseError
+           user = authenticate(
+               request,
+               username=username,
+               password=password,
+           )
+           if user: # 유저 정보를 암호화하여 반환
+               token = jwt.encode(
+                   {"pk": user.pk},
+                   settings.SECRET_KEY, # django의 SECRET_KEY를 사용
+                   algorithm="HS256",
+               )
+               return Response({"token": token})
+           else:
+               return Response({"error": "wrong password"})
+   ```
+
+   - 암호화할 때, 위의 예시에선 `pk`만 넣음.
+     - 복호화의 가능성이 있기 때문에 민감한 정보X. 
+     - **JWT의 보안점은 암호화**가 아닌 **우리가 준 토큰인지, 수정이 있었는지 알 수 있다는 것**. 
+
+4. 여기부터 decode 단계. settings.py에 다음을 추가
+
+   ```python
+   REST_FRAMEWORK = {
+       "DEFAULT_AUTHENTICATION_CLASSES": [
+        ...,
+   	"config.authentication.JWTAuthentication", # 추가
+       ]
+   }
+   ```
+
+5. `config.authentication.py`생성 후 클래스 추가
+
+   ```python
+   from multiprocessing import AuthenticationError
+   import jwt
+   from django.conf import settings
+   from rest_framework.authentication import BaseAuthentication
+   from rest_framework.exceptions import AuthenticationFailed
+   from users.models import User
+   
+   class JWTAuthentication(BaseAuthentication):
+       def authenticate(self, request):
+           token = request.headers.get("Jwt")
+           if not token:
+               return None
+           decoded = jwt.decode(
+               token,
+               settings.SECRET_KEY,
+               algorithms=["HS256"],
+           )
+           pk = decoded.get("pk")
+           if not pk:
+               raise AuthenticationFailed("Invalid Token")
+           try:
+               user = User.objects.get(pk=pk)
+               return (user, None)
+           except User.DoesNotExist:
+               raise AuthenticationFailed("User Not Found")
+   ```
+
+6. 이하 Token 방식과 동일한 POST 방식
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
