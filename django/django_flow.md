@@ -776,7 +776,6 @@ DRF 테스트 클래스 사용 : `from rest_framework.test import APITestCase`
   ```
 
   
-
 ### 주의사항
 
 같은 폴더 내의 파일을 import 할 때, `import views ` 를 하면 에러, `from . import views`로 해야 에러가 안난다.
