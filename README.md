@@ -1,9 +1,9 @@
 # TIL
 > Today I Learned
 
-자주 수정하는 파일
-[django 정리 및 코드템플릿 (메인 참고자료)](django/flow.md)
-[DRF (메인 참고자료)](django/drf.md)
+자주 수정하는 파일  
+[django 정리 및 코드템플릿 (메인 참고자료)](django/flow.md)  
+[DRF (메인 참고자료)](django/drf.md)  
 
 
 _53 TILs and counting..._
