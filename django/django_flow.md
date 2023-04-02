@@ -1,7 +1,6 @@
 django 정리 및 코드템플릿 (메인 참고자료)
 
 
-
 # 환경 (poetry)
 
 1. `poetry init` : 가상환경 설정. `pyproject.toml`, `poetry.lock `파일을 생성하여 라이브러리 관린
