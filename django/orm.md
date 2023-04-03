@@ -57,6 +57,7 @@ django docs = https://docs.djangoproject.com/ko/4.1/topics/db/queries/#field-loo
 - `exact/contains/startswith/endswith` : 정확히 일치하는/ 포함하는 /시작하는/ 끝나는  값 찾기
   - `iexact` : 대소문자 구별 X 하는 exact. 
   - **이후로도 맨 앞에 i가 추가로 붙으면 대소문자 구별을 제외한 함수** (ex `icontains`, `iendswith`)
+- `created_at__year/month/day = day` : `created_at`으로 정의된 `DateTimeField`가 가진 lookup
 - 등등 문서 참고
 
 
