@@ -766,7 +766,7 @@ DRF 테스트 클래스 사용 : `from rest_framework.test import APITestCase`
           return_obj.violations.add(vio2)
           # 3-2 전체 오브젝트 일 때 (vios)
   		return_obj.violations.add(**vios) 
-          
+           
           data = {
               "violations": v1,
               "img": self.IMG_URL,
