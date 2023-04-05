@@ -6,7 +6,7 @@
 [DRF (메인 참고자료)](django/drf.md)  
 
 
-_54 TILs and counting..._
+_55 TILs and counting..._
 
 ---
 
@@ -29,6 +29,7 @@ _54 TILs and counting..._
 
 ### [CS_Basic](#CS_Basic)
 - [# 용어](CS_Basic/Q.md)
+- [HTTP basic](CS_Basic/http_basic.md)
 - [Internet_basic](CS_Basic/internet_basic.md)
 
 ### [Cloud](#Cloud)
