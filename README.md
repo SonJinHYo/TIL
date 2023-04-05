@@ -6,7 +6,7 @@
 [DRF (메인 참고자료)](django/drf.md)  
 
 
-_53 TILs and counting..._
+_54 TILs and counting..._
 
 ---
 
@@ -29,6 +29,7 @@ _53 TILs and counting..._
 
 ### [CS_Basic](#CS_Basic)
 - [# 용어](CS_Basic/Q.md)
+- [Internet_basic](CS_Basic/internet_basic.md)
 
 ### [Cloud](#Cloud)
 - [인공지능 모델 배포 - AWS - 클라우드 기초](Cloud/Basic.md)
