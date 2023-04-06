@@ -1,4 +1,5 @@
-Internet_basic
+Internet_basic  
+참조 : https://cs.fyi/guide/how-does-internet-work
 
 ## 기본 개념과 용어
 
