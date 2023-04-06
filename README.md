@@ -6,7 +6,7 @@
 [DRF (메인 참고자료)](django/drf.md)  
 
 
-_56 TILs and counting..._
+_57 TILs and counting..._
 
 ---
 
@@ -49,6 +49,7 @@ _56 TILs and counting..._
 
 ### [Internet_Basic](#Internet_Basic)
 - [브라우저 작동 원리](Internet_Basic/browser_basice.md)
+- [DNS basic](Internet_Basic/dns_basic.md)
 - [HTTP basic](Internet_Basic/http_basic.md)
 - [Internet_basic](Internet_Basic/internet_basic.md)
 
