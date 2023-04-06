@@ -1,4 +1,4 @@
-DNS basic
+DNS basic  
 참조 : https://www.cloudflare.com/en-gb/learning/dns/what-is-dns/
 
 ## DNS
