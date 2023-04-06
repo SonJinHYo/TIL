@@ -1,4 +1,4 @@
-브라우저 작동 원리
+Browser basic
 
 참조 : https://web.dev/howbrowserswork/
 
