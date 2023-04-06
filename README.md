@@ -6,7 +6,7 @@
 [DRF (메인 참고자료)](django/drf.md)  
 
 
-_55 TILs and counting..._
+_56 TILs and counting..._
 
 ---
 
@@ -48,6 +48,7 @@ _55 TILs and counting..._
 - [플라스크 GET,POST,DELETE 이용해서 간단 CRUD구현](Flask/flask_prac1.md)
 
 ### [Internet_Basic](#Internet_Basic)
+- [브라우저 작동 원리](Internet_Basic/browser_basice.md)
 - [HTTP basic](Internet_Basic/http_basic.md)
 - [Internet_basic](Internet_Basic/internet_basic.md)
 
