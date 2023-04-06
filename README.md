@@ -16,6 +16,7 @@ _55 TILs and counting..._
 - [Cloud](#Cloud)
 - [ES6](#ES6)
 - [Flask](#Flask)
+- [Internet_Basic](#Internet_Basic)
 - [Kaggle_Note](#Kaggle_Note)
 - [ML_DL](#ML_DL)
 - [Matplotlib](#Matplotlib)
@@ -29,8 +30,6 @@ _55 TILs and counting..._
 
 ### [CS_Basic](#CS_Basic)
 - [# 용어](CS_Basic/Q.md)
-- [HTTP basic](CS_Basic/http_basic.md)
-- [Internet_basic](CS_Basic/internet_basic.md)
 
 ### [Cloud](#Cloud)
 - [인공지능 모델 배포 - AWS - 클라우드 기초](Cloud/Basic.md)
@@ -47,6 +46,10 @@ _55 TILs and counting..._
 
 ### [Flask](#Flask)
 - [플라스크 GET,POST,DELETE 이용해서 간단 CRUD구현](Flask/flask_prac1.md)
+
+### [Internet_Basic](#Internet_Basic)
+- [HTTP basic](Internet_Basic/http_basic.md)
+- [Internet_basic](Internet_Basic/internet_basic.md)
 
 ### [Kaggle_Note](#Kaggle_Note)
 - [Kaggle_TIL](Kaggle_Note/kaggle_til.md)
