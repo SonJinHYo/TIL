@@ -1,4 +1,5 @@
 HTTP basic
+참조 : https://cs.fyi/guide/http-in-depth
 
 ## HTTP란?
 
